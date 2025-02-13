@@ -36,6 +36,19 @@ class CustomUser(AbstractUser):
         ('Retired', 'Retired'),
     ]
 
+    INTEREST_CHOICES = [
+    ('sports', 'Sports'),
+    ('music', 'Music'),
+    ('travel', 'Travel'),
+    ('technology', 'Technology'),
+    ('art', 'Art'),
+    ('gaming', 'Gaming'),
+    ('fitness', 'Fitness'),
+    ('business', 'Business'),
+    ('science', 'Science'),
+    ('fashion', 'Fashion'),
+]
+
     title = models.CharField(max_length=10, choices=TITLE_CHOICES, blank=True)
     
     gender = models.CharField(max_length=10, choices=GENDER_CHOICES)
@@ -58,7 +71,8 @@ class CustomUser(AbstractUser):
 
     # Employment & Interests
     employment_status = models.CharField(max_length=20, choices=EMPLOYMENT_STATUS_CHOICES)
-    interests = models.CharField(max_length=255, default="Travel, Sports, Reading")  # Default random interests
+    interests = models.CharField(max_length=100, choices=INTEREST_CHOICES, blank=True) 
+
     
     # Club Membership & Social Media
     member_of_club = models.CharField(max_length=255, blank=True, null=True)
@@ -68,9 +82,31 @@ class CustomUser(AbstractUser):
     proof_of_id = models.ImageField(upload_to='uploads/ids/', blank=True, null=True)
     profile_picture = models.ImageField(upload_to='uploads/profile_pics/', blank=True, null=True)
 
-    # # Referrals (User selects 3 existing members to approve them)
-    # referrals = models.ManyToManyField('self', symmetrical=False, blank=True, related_name='referred_users')
+    referrals = models.ManyToManyField('self', symmetrical=False, blank=True, related_name='referred_users')
+
+    def save(self, *args, **kwargs):
+        from django.contrib.auth import get_user_model
+        User = get_user_model()
+        
+        # If there are no users in the system, allow registration without referrals
+        if User.objects.count() == 0:
+            super().save(*args, **kwargs)
+        else:
+            if self.referrals.count() < 3:
+                raise ValueError("You must select at least 3 referrals")
+            super().save(*args, **kwargs)
+  
 
     def __str__(self):
         return f"{self.username} {self.last_name} ({self.primary_email})"
+    
+
+class ReferralRequest(models.Model):
+    referred_user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='incoming_requests')
+    referring_user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='outgoing_requests')
+    approved = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f"{self.referring_user} referred {self.referred_user} - {'Approved' if self.approved else 'Pending'}"
+
 

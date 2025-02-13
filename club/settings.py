@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'base',
+    'django_countries',
     
 ]
 
@@ -128,3 +129,7 @@ STATIC_DIR = [
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL ="base.CustomUser"
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
