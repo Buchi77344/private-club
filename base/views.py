@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render ,get_object_or_404 
 from .models import *
 from django.contrib import auth
 # Create your views here.
@@ -311,7 +311,29 @@ def reset_password(request, uidb64, token):
     return render(request, 'reset_password.html', {'uidb64': uidb64, 'token': token})
 
 
+# account profile backend code 
 
+
+from django.shortcuts import render, get_object_or_404
+from django.contrib import messages
+from .models import CustomUser
+
+def AccountProfile(request):
+    userprofile = get_object_or_404(CustomUser, email=request.user.email)
+
+    if request.method == "POST":
+        userprofile.first_name = request.POST.get('first_name')
+        userprofile.gender = request.POST.get('gender')
+        userprofile.email = request.POST.get('email')
+        userprofile.date_of_birth = request.POST.get('date_of_birth')
+        userprofile.primary_phone = request.POST.get('primary_phone')
+        userprofile.country = request.POST.get('country')
+        
+        userprofile.save()  # Save the updated profile
+
+        messages.success(request, "Profile updated successfully!")
+
+    return render(request, 'account.html', {'userprofile': userprofile})
 
 
 

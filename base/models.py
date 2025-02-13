@@ -110,3 +110,7 @@ class ReferralRequest(models.Model):
         return f"{self.referring_user} referred {self.referred_user} - {'Approved' if self.approved else 'Pending'}"
 
 
+
+
+# class AddEvent(models.Model):
+#     event_name =
