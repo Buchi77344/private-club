@@ -68,7 +68,7 @@ INTEREST_CHOICES = [
 from django.shortcuts import render
 from django.contrib.auth import get_user_model
 from django.contrib import messages
-from django_countries.data import COUNTRIES
+from django_countries import countries
 from .models import ReferralRequest
 
 CustomUser = get_user_model()
@@ -159,7 +159,7 @@ def signup(request):
                 'title_choices': TITLE_CHOICES,
                 'gender_choices': GENDER_CHOICES,
                 'relationship_status_choices': RELATIONSHIP_STATUS_CHOICES,
-                'countries': COUNTRIES,
+                'countries': countries,
                 'employment_status_choices': EMPLOYMENT_STATUS_CHOICES,
                 'interest_choices': INTEREST_CHOICES,
                 'members': CustomUser.objects.all(),  
@@ -210,7 +210,7 @@ def signup(request):
             'title_choices': TITLE_CHOICES,
             'gender_choices': GENDER_CHOICES,
             'relationship_status_choices': RELATIONSHIP_STATUS_CHOICES,
-            'countries': COUNTRIES,
+            'countries': countries,
             'employment_status_choices': EMPLOYMENT_STATUS_CHOICES,
             'interest_choices': INTEREST_CHOICES,
             'members': CustomUser.objects.all(),  
@@ -220,7 +220,7 @@ def signup(request):
         'title_choices': TITLE_CHOICES,
         'gender_choices': GENDER_CHOICES,
         'relationship_status_choices': RELATIONSHIP_STATUS_CHOICES,
-        'countries': COUNTRIES,
+        'countries': countries,
         'employment_status_choices': EMPLOYMENT_STATUS_CHOICES,
         'interest_choices': INTEREST_CHOICES,
         'members': CustomUser.objects.all(),  
