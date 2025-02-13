@@ -1,9 +1,23 @@
 from django.shortcuts import render ,get_object_or_404 
 from .models import *
 from django.contrib import auth
+from django.http import JsonResponse
 # Create your views here.
 def index(request):
-    return render (request, 'index.html')
+    events = Event.objects.all()
+    return render(request, 'index.html', {'events': events})
+
+def event_detail(request, event_id):
+    event = get_object_or_404(Event, id=event_id)
+    event_data = {
+        'id': event.id,
+        'name': event.name,
+        'description': event.description,
+        'date': event.time,  # Format date
+        'location': event.location,
+        'image': event.image.url if event.image else None
+    }
+    return JsonResponse(event_data)
 
 
 from django.shortcuts import render, redirect
@@ -354,4 +368,6 @@ def AccountProfile(request):
 #         return redirect('dashboard')  # Redirect after approval
 
 #     return redirect('error_page')  # Handle invalid cases
+
+
 

@@ -112,5 +112,22 @@ class ReferralRequest(models.Model):
 
 
 
-# class AddEvent(models.Model):
-#     event_name =
+class Event(models.Model):
+    AUDIENCE_CHOICES = [
+        ('public', 'Public'),
+        ('members_only', 'Members Only'),
+        ('vip', 'VIP')
+    ]
+
+    name = models.CharField(max_length=255)
+    location = models.CharField(max_length=255)
+    time = models.DateTimeField()
+    description = models.TextField()
+    audience_type = models.CharField(max_length=20, choices=AUDIENCE_CHOICES, default='public')
+    price = models.DecimalField(max_digits=10, decimal_places=2)
+    total_tickets = models.PositiveIntegerField()
+    attending_members = models.ManyToManyField(CustomUser, blank=True)
+    image = models.ImageField(upload_to='event_images/', null=True, blank=True)
+
+    def __str__(self):
+        return self.name
