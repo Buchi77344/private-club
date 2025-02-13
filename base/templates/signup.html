@@ -222,7 +222,7 @@
 								</h3>
 
 								<div class="mt-3 form-el-container">
-									<div class="form-el-div pt-0 large">
+									<div class="form-el-div border-incl pt-0 large">
 										<label for="title-select">Title</label>
 										<select class="d-block w-100" name="title" id="title-select">
 											{% for kay, value in title_choices %}
@@ -232,7 +232,7 @@
 									</div>
 
 									<div class="row gap-3 gap-lg-0 ps-0">
-										<div class="form-el-div col-lg-6 pe-3">
+										<div class="form-el-div border-incl col-lg-6 pe-3">
 											<label for="title-select">Firstname</label>
 											<input
 												class="w-100"
@@ -241,7 +241,7 @@
 											/>
 										</div>
 
-										<div class="form-el-div col-lg-6 ps-3">
+										<div class="form-el-div border-incl col-lg-6 ps-3">
 											<label for="title-select">Lastname</label>
 											<input
 												class="w-100"
@@ -252,7 +252,7 @@
 									</div>
 
 									<div class="row gap-3 gap-lg-0 ps-0">
-										<div class="form-el-div col-lg-6 pe-3">
+										<div class="form-el-div border-incl col-lg-6 pe-3">
 											<label for="gender-select">Gender</label>
 											<select class="d-block w-100" name="gender" id="gender-select">
 												{% for kay, value in gender_choices %}
@@ -261,7 +261,7 @@
 											</select>
 										</div>
 
-										<div class="form-el-div col-lg-6 ps-3">
+										<div class="form-el-div border-incl col-lg-6 ps-3">
 											<label for="title-select">Date Of Birth</label>
 											<input
 												class="w-100"
@@ -272,7 +272,7 @@
 									</div>
 
 									<div class="row gap-3 gap-lg-0 ps-0">
-										<div class="form-el-div col-lg-6 pe-3">
+										<div class="form-el-div border-incl col-lg-6 pe-3">
 											<label for="Nationality-select">Nationality</label>
 											<select
 												class="d-block w-100"
@@ -285,7 +285,7 @@
 											</select>
 										</div>
 
-										<div class="form-el-div col-lg-6 ps-3">
+										<div class="form-el-div border-incl col-lg-6 ps-3">
 											<label for="additional-nationality-select"
 												>Additional Nationality</label
 											>
@@ -302,7 +302,7 @@
 										</div>
 									</div>
 
-									<div class="form-el-div large">
+									<div class="form-el-div border-incl large">
 										<label for="relationship-status-selecttitle-select"
 											>Relationship Status</label
 										>
@@ -370,6 +370,31 @@
 											name= "zipcode"
 										/>
 									</div>
+
+									<div class="external-email-wrapper">
+										<div class="form-el-div">
+											<label for="title-select">Primary Email</label>
+											<input class="w-100" type="text" placeholder="" />
+										</div>
+
+										<div class="form-el-div">
+											<label for="title-select">Secondary Email</label>
+											<input class="w-100" type="text" placeholder="" />
+										</div>
+									</div>
+
+									<div class="form-el-div">
+										<label for="Country-select">State</label>
+										<select class="d-block w-100" name="" id="Country-select">
+											<option value="">Select State</option>
+											<option value="South Korea">South Korea</option>
+											<option value="India">India</option>
+											<option value="Ghana">Ghana</option>
+											<option value="Morocco">Morocco</option>
+										</select>
+									</div>
+
+									
 
 									<!-- <div class="form-el-div mt-3">
 										 <label for="relationship-status-selecttitle-select"
@@ -466,7 +491,7 @@
 					</div>
 					<footer class="px-4 py-4 mt-5">
 						<div
-							class="d-flex  flex-wrap gap-3 align-items-center justify-content-between w-full"
+							class="d-flex flex-wrap gap-3 align-items-center justify-content-between w-full"
 						>
 							<div class="d-flex flex-wrap gap-3 gap-lg-5 align-items-center">
 								<div class="social-container d-flex flex-wrap gap-3">
