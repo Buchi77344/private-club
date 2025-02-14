@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Card Slider</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+
+    <style>
+        /* Background */
+        body {
+            background: url('https://source.unsplash.com/random/1600x900/?concert,party') no-repeat center center/cover;
+            color: white;
+            font-family: 'Poppins', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Swiper Container */
+        .swiper-container {
+            width: 85%;
+            max-width: 1200px;
+            margin: auto;
+            padding: 40px 0;
+        }
+
+        /* Swiper Slide (Cards) */
+        .swiper-slide {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(8px);
+            border-radius: 15px;
+            text-align: center;
+            transition: transform 0.3s ease-in-out;
+            overflow: hidden;
+            position: relative;
+            height: 350px;
+        }
+
+        /* Image inside Cards */
+        .swiper-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 15px;
+        }
+
+        /* Overlay Effect */
+        .event-info {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+            color: white;
+            border-bottom-left-radius: 12px;
+            border-bottom-right-radius: 12px;
+        }
+
+        /* Swiper Pagination */
+        .swiper-pagination {
+            bottom: 15px;
+        }
+
+        /* Navigation Buttons */
+        .swiper-button-prev, .swiper-button-next {
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-dark bg-dark px-4">
+        <a class="navbar-brand" href="#">Event Slider</a>
+        <div class="profile d-flex align-items-center">
+            <img src="https://via.placeholder.com/40" alt="Profile" class="rounded-circle">
+            <span class="ms-2">Goodluck</span>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <div class="container text-center my-4">
+        <h2>Upcoming Events</h2>
+        <p>Book your spot for exclusive experiences.</p>
+    </div>
+
+    <!-- Swiper Slider with 3D Effect -->
+    <div class="swiper-container">
+        <div class="swiper-wrapper">
+            <!-- Event 1 -->
+            <div class="swiper-slide">
+                <img src="static/img/one.webp" alt="Event 1">
+                <div class="event-info">
+                    <h5>The Bout for Lions</h5>
+                    <p>📅 2nd January, 2025 - ⏰ 10:00 PM</p>
+                </div>
+            </div>
+            <!-- Event 2 -->
+            <div class="swiper-slide">
+                <img src="static/img/red.png" alt="Event 2">
+                <div class="event-info">
+                    <h5>Basketball Finals</h5>
+                    <p>📅 5th January, 2025 - ⏰ 8:00 PM</p>
+                </div>
+            </div>
+            <!-- Event 3 -->
+            <div class="swiper-slide">
+                <img src="static/img/red.png" alt="Event 3">
+                <div class="event-info">
+                    <h5>Concert Night</h5>
+                    <p>📅 10th January, 2025 - ⏰ 6:30 PM</p>
+                </div>
+            </div>
+            <!-- Event 4 -->
+            <div class="swiper-slide">
+                <img src="static/img/red.png" alt="Event 4">
+                <div class="event-info">
+                    <h5>Art Exhibition</h5>
+                    <p>📅 15th January, 2025 - ⏰ 4:00 PM</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pagination & Navigation -->
+        <div class="swiper-pagination"></div>
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
+    </div>
+
+    <!-- Bootstrap & Swiper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var swiper = new Swiper(".swiper-container", {
+                effect: "coverflow",   // Enables 3D effect
+                grabCursor: true,
+                centeredSlides: true,
+                slidesPerView: "auto",
+                loop: true,
+                coverflowEffect: {
+                    rotate: 0,         // No rotation
+                    stretch: 0,        // No stretch
+                    depth: 150,        // Creates 3D depth effect
+                    modifier: 1.2,
+                    slideShadows: false // Disables shadow
+                },
+                autoplay: {
+                    delay: 2500,  // Auto-slide every 2.5 seconds
+                    disableOnInteraction: false,
+                },
+                pagination: {
+                    el: ".swiper-pagination",
+                    clickable: true,
+                },
+                navigation: {
+                    nextEl: ".swiper-button-next",
+                    prevEl: ".swiper-button-prev",
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
