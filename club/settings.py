@@ -136,3 +136,9 @@ AUTH_USER_MODEL ="base.CustomUser"
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
+
+STREAM_API_KEY = "jsqtwxemtefv"
+STREAM_API_SECRET = "jgpp5z3m8kmhvkv5bxw6u8zht9u8upv2js9vkatwbv9z6yznhwhnnf5g2kushdrh"
+STREAM_APP_ID = "1366229"
+Analytics_Token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyZXNvdXJjZSI6ImFuYWx5dGljcyIsImFjdGlvbiI6IioiLCJ1c2VyX2lkIjoiKiJ9.M07iKdJz_fC1x1C7J0txTsSOGx6e6VTUJLQT68fQ5ek"
+

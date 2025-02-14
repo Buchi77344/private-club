@@ -1,0 +1,109 @@
+
+<h2>Select Members for Referral</h2>
+
+<form id="referralForm">
+    {% for member in members %}
+        <div class="member-item">
+            <input type="checkbox" 
+                   name="referrals" 
+                   value="{{ member.id }}" 
+                   id="member-{{ member.id }}"
+                   {% if member.id in checked_members %} checked {% endif %}>
+
+            <label for="member-{{ member.id }}">
+                {{ member.first_name }} {{ member.last_name }} ({{ member.email }})
+            </label>
+        </div>
+    {% endfor %}
+    <input type="hidden" id="user_id" value="{{ request.user.id }}">
+    
+    <button class="primary-btn-group-util" type="button">Send Referral</button>
+</form>
+<!-- Bootstrap Modal -->
+<div class="modal fade" id="blockedModal" tabindex="-1" aria-labelledby="blockedModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title text-danger" id="blockedModalLabel">Access Restricted</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p class="fw-semibold text-center">Please wait for 6 months before you log in.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Okay</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const sendReferralBtn = document.querySelector(".primary-btn-group-util");
+    
+        sendReferralBtn.addEventListener("click", async function () {
+            // Select all checked referral checkboxes
+            const selectedCheckboxes = document.querySelectorAll('input[name="referrals"]:checked');
+            const selectedMembers = Array.from(selectedCheckboxes).map(e => e.value);
+    
+            const senderIdElement = document.getElementById('user_id');
+            if (!senderIdElement) {
+                alert("User ID not found.");
+                return;
+            }
+            const senderId = senderIdElement.value; // Get the logged-in user ID
+    
+            // Ensure exactly 3 members are selected
+            if (selectedMembers.length !== 3) {
+                alert(`You must select exactly 3 members. Currently selected: ${selectedMembers.length}`);
+                return;
+            }
+    
+            try {
+                const response = await fetch("/send-referrals", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        sender_id: senderId,
+                        selected_users: selectedMembers,
+                    }),
+                });
+    
+                const result = await response.json();
+    
+                if (result.success) {
+                    alert("Request sent successfully!");
+                    window.location.href = "/status/"; // Redirect to status page
+                } else {
+                    alert("Error: " + result.error);
+                }
+            } catch (error) {
+                console.error("Error:", error);
+                alert("Something went wrong. Please try again.");
+            }
+        });
+    });
+    
+</script>
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", async function () {
+        try {
+            const response = await fetch("/check-declined-referrals/");
+            const result = await response.json();
+    
+            if (result.status === "blocked") {
+                // Show Bootstrap Modal
+                const modal = new bootstrap.Modal(document.getElementById("blockedModal"));
+                modal.show();
+            }
+        } catch (error) {
+            console.error("Error:", error);
+        }
+    });
+    
+</script>

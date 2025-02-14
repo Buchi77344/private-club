@@ -1,0 +1,63 @@
+c
+
+<script>
+  document.addEventListener("DOMContentLoaded", async function () {
+    const referralButton = document.querySelector(".gradient-btn-util");
+
+    try {
+        const response = await fetch("/check-referral-status/");
+        const result = await response.json();
+
+        if (result.status === "blocked") {
+          const modal = new bootstrap.Modal(document.getElementById("blockedModal"));
+          modal.show()// "Please wait for 6 months before you log in."
+            referralButton.disabled = true; // Disable the button
+        } else if (result.status === "pending") {
+            referralButton.disabled = false; // Enable button
+        } else if(result.status ==="good"){
+            referralButton.disabled = true; // Disable the button
+        }
+
+    } catch (error) {
+        console.error("Error:", error);
+    }
+
+    // Event listener to redirect when clicking the add referral button
+    referralButton.addEventListener("click", function () {
+        window.location.href = "/add-referral/"; // Redirect to the add referral page
+    });
+});
+
+
+
+document.addEventListener("DOMContentLoaded", async function () {
+  try {
+      const response = await fetch("/check-declined-referrals/");
+      const result = await response.json();
+
+      if (result.status === "blocked") {
+          // Show Bootstrap Modal
+          const modal = new bootstrap.Modal(document.getElementById("blockedModal"));
+          modal.show();
+      }
+  } catch (error) {
+      console.error("Error:", error);
+  }
+});
+
+
+document.addEventListener("DOMContentLoaded", async function () {
+  try {
+      const response = await fetch("/check-referral-approval/");
+      const result = await response.json();
+
+      if (result.status === "approved") {
+          window.location.href = result.redirect_url;  // Redirect to payment page
+      }
+  } catch (error) {
+      console.error("Error:", error);
+  }
+});
+
+
+</script>
