@@ -89,7 +89,7 @@
 		<title>Document</title>
 	</head>
 	<body>
-		<div class="container mt-5 mb-5">
+		<div class="">
 			<nav>
 				<span class="flex-center logo-span">
 					<svg
@@ -110,359 +110,366 @@
 			<div class="card">
 				<div class="card-body">
 					<!-- Step Progress Bar with Connecting Line -->
-					<div class="px-5 py-4">
-						<div class="progress-container">
-							<div class="progress-line"></div>
-							<div class="progress-line-fill"></div>
-							<div class="step-indicator-container">
-								<span class="step-indicator active">1</span>
-								<span class="step-indicator-text">Step 1</span>
-							</div>
+					<div class="container">
+						<div class="pt-4">
+							<div class="progress-container">
+								<div class="progress-line"></div>
+								<div class="progress-line-fill"></div>
+								<div class="step-indicator-container">
+									<span class="step-indicator active">1</span>
+									<span class="step-indicator-text">Step 1</span>
+								</div>
 
-							<div class="step-indicator-container">
-								<span class="step-indicator">2</span>
-								<span class="step-indicator-text">Step 2</span>
-							</div>
+								<div class="step-indicator-container">
+									<span class="step-indicator">2</span>
+									<span class="step-indicator-text">Step 2</span>
+								</div>
 
-							<div class="step-indicator-container">
-								<span class="step-indicator">3</span>
-								<span class="step-indicator-text">Step 3</span>
-							</div>
+								<div class="step-indicator-container">
+									<span class="step-indicator">3</span>
+									<span class="step-indicator-text">Step 3</span>
+								</div>
 
-							<div class="step-indicator-container">
-								<span class="step-indicator">4</span>
-								<span class="step-indicator-text">Step 4</span>
-							</div>
+								<div class="step-indicator-container">
+									<span class="step-indicator">4</span>
+									<span class="step-indicator-text">Step 4</span>
+								</div>
 
-							<div class="step-indicator-container">
-								<span class="step-indicator">5</span>
-								<span class="step-indicator-text">Step 5</span>
+								<div class="step-indicator-container">
+									<span class="step-indicator">5</span>
+									<span class="step-indicator-text">Step 5</span>
+								</div>
 							</div>
 						</div>
+
+						<!-- Multi-Step Form -->
+						<form class="mt-5 pt-2" id="multiStepForm">
+							<!-- Step 1 -->
+							<div class="step active">
+								<h4 class="pl-font text-center fs-2">
+									Membership Requirements
+								</h4>
+								<p class="text-center fw-medium mt-3">
+									Please note that all sections must be completed in order for
+									this application to be submitted to the Committee. Any
+									application missing information will be deemed incomplete and
+									therefore not to be considered.
+								</p>
+								<p class="text-center fw-medium mt-3">
+									In order to apply for membership you will need to include:
+								</p>
+								<ul class="mem-require-list">
+									<li>
+										<h5>1. Clear Recent Picture</h5>
+										<p class="gray-text">
+											Please upload a recent head and shoulders picture of
+											yourself. This will be used for security purposes to
+											verify your identity upon your arrival to the Club.
+											Therefore, please ensure the picture is representative of
+											how you will appear when visiting the Club.
+										</p>
+									</li>
+
+									<li>
+										<h5>2. Proof of ID</h5>
+										<p class="gray-text">
+											(e.g. Drivers License, Passport or ID card). Applicants
+											must be over 18 years of age.
+										</p>
+									</li>
+
+									<li>
+										<h5>3. Your Referrals</h5>
+										<p class="gray-text">
+											A referral who is currently a Hevsuite Club Member is
+											mandatory for this application. All potential members
+											should be aware that we do not accept membership
+											applications through third parties (including any agencies
+											or concierges) or social media accounts. The only way to
+											apply for membership is via our website.
+										</p>
+									</li>
+
+									<li>
+										<h5>4. Payment</h5>
+										<p class="gray-text">
+											To finalise your application, we kindly ask you to fill
+											out both a Direct Debit mandate and your credit/debit card
+											details which will be used to take payment for joining and
+											non-engagement (see our support link for more). Payment
+											only be taken after you’ve successfully been accepted by
+											our members.
+										</p>
+										<p class="fw-semibold mt-2">
+											PS - Non-engagement fee is paid ONLY for not attending any
+											occasion every 28 days.
+										</p>
+									</li>
+								</ul>
+								<button
+									type="button"
+									class="continue-btn mt-4 mx-auto d-block next"
+								>
+									Continue →
+								</button>
+							</div>
+
+							<!-- Step 2 -->
+							<div class="step">
+								<h3 class="primary-clr-text fs-4 text-center">
+									Personal Details
+								</h3>
+
+								<div class="mt-3 form-el-container">
+									<div class="form-el-div pt-0 large">
+										<label for="title-select">Title</label>
+										<select class="d-block w-100" name="" id="title-select">
+											<option value="">Select Title</option>
+											<option value="exercise">Exercise</option>
+											<option value="reading">Reading</option>
+											<option value="blogging">Blogging</option>
+											<option value="dancing">Dancing</option>
+											<option value="coding">Coding</option>
+										</select>
+									</div>
+
+									<div class="row gap-3 gap-lg-0 ps-0">
+										<div class="form-el-div col-lg-6 pe-3">
+											<label for="title-select">Firstname</label>
+											<input
+												class="w-100"
+												type="text"
+												placeholder="Enter First Name"
+											/>
+										</div>
+
+										<div class="form-el-div col-lg-6 ps-3">
+											<label for="title-select">Lastname</label>
+											<input
+												class="w-100"
+												type="text"
+												placeholder="Enter Last Name"
+											/>
+										</div>
+									</div>
+
+									<div class="row gap-3 gap-lg-0 ps-0">
+										<div class="form-el-div col-lg-6 pe-3">
+											<label for="gender-select">Gender</label>
+											<select class="d-block w-100" name="" id="gender-select">
+												<option value="">Select Gender</option>
+												<option value="Male">Male</option>
+												<option value="Female">Female</option>
+											</select>
+										</div>
+
+										<div class="form-el-div col-lg-6 ps-3">
+											<label for="title-select">Date Of Birth</label>
+											<input
+												class="w-100"
+												type="date"
+												placeholder="Enter Last Name"
+											/>
+										</div>
+									</div>
+
+									<div class="row gap-3 gap-lg-0 ps-0">
+										<div class="form-el-div col-lg-6 pe-3">
+											<label for="Nationality-select">Nationality</label>
+											<select
+												class="d-block w-100"
+												name=""
+												id="Nationality-select"
+											>
+												<option value="">Select Nationality</option>
+												<option value="Nigeria">Nigeria</option>
+												<option value="Cameroon">Cameroon</option>
+												<option value="Canada">Canada</option>
+												<option value="China">China</option>
+											</select>
+										</div>
+
+										<div class="form-el-div col-lg-6 ps-3">
+											<label for="additional-nationality-select"
+												>Additional Nationality</label
+											>
+											<select
+												class="d-block w-100"
+												name=""
+												id="additional-nationality-select"
+											>
+												<option value="">Select Additional Nationality</option>
+												<option value="Nigeria">Nigeria</option>
+												<option value="Cameroon">Cameroon</option>
+												<option value="Canada">Canada</option>
+												<option value="China">China</option>
+											</select>
+										</div>
+									</div>
+
+									<div class="form-el-div large">
+										<label for="relationship-status-selecttitle-select"
+											>Relationship Status</label
+										>
+										<select
+											class="d-block w-100"
+											name=""
+											id="relationship-status-select"
+										>
+											<option value="">Select Relationship Status</option>
+											<option value="Married">Married</option>
+											<option value="Single">Single</option>
+										</select>
+									</div>
+								</div>
+
+								<div class="btn-container align-items-center">
+									<button type="button" class="prev-btn fw-bold prev">
+										BACK
+									</button>
+									<button type="button" class="continue-btn next">
+										Continue →
+									</button>
+								</div>
+							</div>
+
+							<!-- Step 3 -->
+							<div class="step">
+								<h3 class="primary-clr-text fs-4 text-center">
+									Personal Details
+								</h3>
+
+								<div class="mt-3 step-1 form-el-container">
+									<div class="form-el-div pt-0">
+										<label for="title-select">Address Line 1</label>
+										<input
+											class="w-100"
+											type="text"
+											placeholder="Address Line 1"
+										/>
+									</div>
+
+									<div class="form-el-div">
+										<label for="title-select">Town/City</label>
+										<input class="w-100" type="text" placeholder="Town/City" />
+									</div>
+
+									<div class="form-el-div">
+										<label for="Country-select">Country</label>
+										<select class="d-block w-100" name="" id="Country-select">
+											<option value="">Select Country</option>
+											<option value="South Korea">South Korea</option>
+											<option value="India">India</option>
+											<option value="Ghana">Ghana</option>
+											<option value="Morocco">Morocco</option>
+										</select>
+									</div>
+
+									<div class="form-el-div">
+										<label for="title-select">Postcode/Zipcode</label>
+										<input
+											class="w-100"
+											type="text"
+											placeholder="Postcode/Zipcode"
+										/>
+									</div>
+
+									<!-- <div class="form-el-div mt-3">
+										 <label for="relationship-status-selecttitle-select"
+											 >Relationship Status</label
+										 >
+										 <select
+											 class="d-block w-100"
+											 name=""
+											 id="relationship-status-select"
+										 >
+											 <option value="">Select Relationship Status</option>
+											 <option value="Married">Married</option>
+											 <option value="Single">Single</option>
+										 </select>
+									 </div>
+	 
+									 <div class="row gap-3 gap-lg-0 mt-3">
+										 <div class="form-el-div col-lg-6 pe-3">
+											 <label for="Nationality-select">Nationality</label>
+											 <select
+												 class="d-block w-100"
+												 name=""
+												 id="Nationality-select"
+											 >
+												 <option value="">Select Nationality</option>
+												 <option value="Nigeria">Nigeria</option>
+												 <option value="Cameroon">Cameroon</option>
+												 <option value="Canada">Canada</option>
+												 <option value="China">China</option>
+											 </select>
+										 </div>
+	 
+										 <div class="form-el-div col-lg-6 ps-3">
+											 <label for="additional-nationality-select"
+												 >Additional Nationality</label
+											 >
+											 <select
+												 class="d-block w-100"
+												 name=""
+												 id="additional-nationality-select"
+											 >
+												 <option value="">Select Additional Nationality</option>
+												 <option value="Nigeria">Nigeria</option>
+												 <option value="Cameroon">Cameroon</option>
+												 <option value="Canada">Canada</option>
+												 <option value="China">China</option>
+											 </select>
+										 </div>
+									 </div> -->
+								</div>
+
+								<div class="btn-container align-items-center">
+									<button type="button" class="prev-btn fw-bold prev">
+										BACK
+									</button>
+									<button type="button" class="continue-btn next">
+										Continue →
+									</button>
+								</div>
+							</div>
+
+							<!-- Step 4 -->
+							<div class="step">
+								<h5>4. Payment</h5>
+								<p>Please enter your payment details.</p>
+								<input
+									type="text"
+									class="form-control mb-3"
+									placeholder="Card Number"
+									required
+								/>
+								<div class="btn-container">
+									<button type="button" class="btn btn-secondary prev">
+										← Previous
+									</button>
+									<button type="button" class="btn btn-primary next">
+										Continue →
+									</button>
+								</div>
+							</div>
+
+							<!-- Final Step -->
+							<div class="step">
+								<h5>Review and Submit</h5>
+								<p>Ensure all information is correct before submission.</p>
+								<div class="btn-container">
+									<button type="button" class="btn btn-secondary prev">
+										← Previous
+									</button>
+									<button type="submit" class="btn btn-success">Submit</button>
+								</div>
+							</div>
+						</form>
 					</div>
-
-					<!-- Multi-Step Form -->
-					<form class="mt-3 px-5 pt-2 pb-5" id="multiStepForm">
-						<!-- Step 1 -->
-						<div class="step active">
-							<h4 class="pl-font text-center fs-2">Membership Requirements</h4>
-							<p class="text-center fw-medium mt-3">
-								Please note that all sections must be completed in order for
-								this application to be submitted to the Committee. Any
-								application missing information will be deemed incomplete and
-								therefore not to be considered.
-							</p>
-							<p class="text-center fw-medium mt-3">
-								In order to apply for membership you will need to include:
-							</p>
-							<ul class="mem-require-list">
-								<li>
-									<h5>1. Clear Recent Picture</h5>
-									<p class="gray-text">
-										Please upload a recent head and shoulders picture of
-										yourself. This will be used for security purposes to verify
-										your identity upon your arrival to the Club. Therefore,
-										please ensure the picture is representative of how you will
-										appear when visiting the Club.
-									</p>
-								</li>
-
-								<li>
-									<h5>2. Proof of ID</h5>
-									<p class="gray-text">
-										(e.g. Drivers License, Passport or ID card). Applicants must
-										be over 18 years of age.
-									</p>
-								</li>
-
-								<li>
-									<h5>3. Your Referrals</h5>
-									<p class="gray-text">
-										A referral who is currently a Hevsuite Club Member is
-										mandatory for this application. All potential members should
-										be aware that we do not accept membership applications
-										through third parties (including any agencies or concierges)
-										or social media accounts. The only way to apply for
-										membership is via our website.
-									</p>
-								</li>
-
-								<li>
-									<h5>4. Payment</h5>
-									<p class="gray-text">
-										To finalise your application, we kindly ask you to fill out
-										both a Direct Debit mandate and your credit/debit card
-										details which will be used to take payment for joining and
-										non-engagement (see our support link for more). Payment only
-										be taken after you’ve successfully been accepted by our
-										members.
-									</p>
-									<p class="fw-semibold mt-2">
-										PS - Non-engagement fee is paid ONLY for not attending any
-										occasion every 28 days.
-									</p>
-								</li>
-							</ul>
-							<button type="button" class="continue-btn mt-4 mx-auto d-block next">
-								Continue →
-							</button>
-						</div>
-
-						<!-- Step 2 -->
-						<div class="step ">
-							<h3 class="primary-clr-text fs-4 text-center">
-								Personal Details
-							</h3>
-
-							<div class="mt-3 form-el-container">
-								<div class="form-el-div">
-									<label for="title-select">Title</label>
-									<select class="d-block w-100" name="" id="title-select">
-										<option value="">Select Title</option>
-										<option value="exercise">Exercise</option>
-										<option value="reading">Reading</option>
-										<option value="blogging">Blogging</option>
-										<option value="dancing">Dancing</option>
-										<option value="coding">Coding</option>
-									</select>
-								</div>
-
-								<div class="row gap-3 gap-lg-0 mt-3">
-									<div class="form-el-div col-lg-6 pe-3">
-										<label for="title-select">Firstname</label>
-										<input
-											class="w-100"
-											type="text"
-											placeholder="Enter First Name"
-										/>
-									</div>
-
-									<div class="form-el-div col-lg-6 ps-3">
-										<label for="title-select">Lastname</label>
-										<input
-											class="w-100"
-											type="text"
-											placeholder="Enter Last Name"
-										/>
-									</div>
-								</div>
-
-								<div class="row gap-3 gap-lg-0 mt-3">
-									<div class="form-el-div col-lg-6 pe-3">
-										<label for="gender-select">Gender</label>
-										<select class="d-block w-100" name="" id="gender-select">
-											<option value="">Select Gender</option>
-											<option value="Male">Male</option>
-											<option value="Female">Female</option>
-										</select>
-									</div>
-
-									<div class="form-el-div col-lg-6 ps-3">
-										<label for="title-select">Date Of Birth</label>
-										<input
-											class="w-100"
-											type="date"
-											placeholder="Enter Last Name"
-										/>
-									</div>
-								</div>
-
-								<div class="row gap-3 gap-lg-0 mt-3">
-									<div class="form-el-div col-lg-6 pe-3">
-										<label for="Nationality-select">Nationality</label>
-										<select
-											class="d-block w-100"
-											name=""
-											id="Nationality-select"
-										>
-											<option value="">Select Nationality</option>
-											<option value="Nigeria">Nigeria</option>
-											<option value="Cameroon">Cameroon</option>
-											<option value="Canada">Canada</option>
-											<option value="China">China</option>
-										</select>
-									</div>
-
-									<div class="form-el-div col-lg-6 ps-3">
-										<label for="additional-nationality-select"
-											>Additional Nationality</label
-										>
-										<select
-											class="d-block w-100"
-											name=""
-											id="additional-nationality-select"
-										>
-											<option value="">Select Additional Nationality</option>
-											<option value="Nigeria">Nigeria</option>
-											<option value="Cameroon">Cameroon</option>
-											<option value="Canada">Canada</option>
-											<option value="China">China</option>
-										</select>
-									</div>
-								</div>
-
-								<div class="form-el-div mt-3">
-									<label for="relationship-status-selecttitle-select"
-										>Relationship Status</label
-									>
-									<select
-										class="d-block w-100"
-										name=""
-										id="relationship-status-select"
-									>
-										<option value="">Select Relationship Status</option>
-										<option value="Married">Married</option>
-										<option value="Single">Single</option>
-									</select>
-								</div>
-							</div>
-
-							<div class="btn-container align-items-center">
-								<button type="button" class="prev-btn fw-bold  prev">
-									BACK
-								</button>
-								<button type="button" class="continue-btn next">
-									Continue →
-								</button>
-							</div>
-						</div>
-
-						<!-- Step 3 -->
-						<div class="step ">
-							<h3 class="primary-clr-text fs-4 text-center">
-								Personal Details
-							</h3>
-
-							<div class="mt-3 form-el-container">
-								<div class="form-el-div">
-									<label for="title-select">Address Line 1</label>
-									<input
-										class="w-100"
-										type="text"
-										placeholder="Address Line 1"
-									/>
-								</div>
-
-								<div class="form-el-div mt-3">
-									<label for="title-select">Town/City</label>
-									<input class="w-100" type="text" placeholder="Town/City" />
-								</div>
-								
-								<div class="form-el-div mt-3">
-									<label for="Country-select">Country</label>
-									<select class="d-block w-100" name="" id="Country-select">
-										<option value="">Select Country</option>
-										<option value="South Korea">South Korea</option>
-										<option value="India">India</option>
-										<option value="Ghana">Ghana</option>
-										<option value="Morocco">Morocco</option>
-									</select>
-								</div>
-						
-								<div class="form-el-div mt-3">
-									<label for="title-select">Postcode/Zipcode</label>
-									<input class="w-100" type="text" placeholder="Postcode/Zipcode" />
-								</div>
-
-
-								
-								<!-- <div class="form-el-div mt-3">
-									<label for="relationship-status-selecttitle-select"
-										>Relationship Status</label
-									>
-									<select
-										class="d-block w-100"
-										name=""
-										id="relationship-status-select"
-									>
-										<option value="">Select Relationship Status</option>
-										<option value="Married">Married</option>
-										<option value="Single">Single</option>
-									</select>
-								</div>
-
-								<div class="row gap-3 gap-lg-0 mt-3">
-									<div class="form-el-div col-lg-6 pe-3">
-										<label for="Nationality-select">Nationality</label>
-										<select
-											class="d-block w-100"
-											name=""
-											id="Nationality-select"
-										>
-											<option value="">Select Nationality</option>
-											<option value="Nigeria">Nigeria</option>
-											<option value="Cameroon">Cameroon</option>
-											<option value="Canada">Canada</option>
-											<option value="China">China</option>
-										</select>
-									</div>
-
-									<div class="form-el-div col-lg-6 ps-3">
-										<label for="additional-nationality-select"
-											>Additional Nationality</label
-										>
-										<select
-											class="d-block w-100"
-											name=""
-											id="additional-nationality-select"
-										>
-											<option value="">Select Additional Nationality</option>
-											<option value="Nigeria">Nigeria</option>
-											<option value="Cameroon">Cameroon</option>
-											<option value="Canada">Canada</option>
-											<option value="China">China</option>
-										</select>
-									</div>
-								</div> -->
-
-							</div>
-
-							<div class="btn-container align-items-center">
-								<button type="button" class="prev-btn fw-bold prev">
-									BACK
-								</button>
-								<button type="button" class="continue-btn next">
-									Continue →
-								</button>
-							</div>
-						</div>
-
-						<!-- Step 4 -->
-						<div class="step">
-							<h5>4. Payment</h5>
-							<p>Please enter your payment details.</p>
-							<input
-								type="text"
-								class="form-control mb-3"
-								placeholder="Card Number"
-								required
-							/>
-							<div class="btn-container">
-								<button type="button" class="btn btn-secondary prev">
-									← Previous
-								</button>
-								<button type="button" class="btn btn-primary next">
-									Continue →
-								</button>
-							</div>
-						</div>
-
-						<!-- Final Step -->
-						<div class="step">
-							<h5>Review and Submit</h5>
-							<p>Ensure all information is correct before submission.</p>
-							<div class="btn-container">
-								<button type="button" class="btn btn-secondary prev">
-									← Previous
-								</button>
-								<button type="submit" class="btn btn-success">Submit</button>
-							</div>
-						</div>
-					</form>
-
-					<footer class="px-5 py-4">
+					<footer class="px-4 py-4 mt-5">
 						<div
-							class="d-flex flex-wrap  gap-3 align-items-center justify-content-between w-full"
+							class="d-flex  flex-wrap gap-3 align-items-center justify-content-between w-full"
 						>
 							<div class="d-flex flex-wrap gap-3 gap-lg-5 align-items-center">
 								<div class="social-container d-flex flex-wrap gap-3">
