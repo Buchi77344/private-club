@@ -170,11 +170,16 @@ nav {
 
 .form-el-div {
 	position: relative;
-	padding-bottom: 30px;
-	padding-top: 30px;
+
+	padding-top: 25px;
 }
 
-.form-el-div::after {
+.form-el-div.border-incl{
+	padding-top: 30px;
+	padding-bottom: 30px;
+}
+
+.form-el-div.border-incl::after {
 	position: absolute;
 	content: "";
 	left: 12px;
@@ -221,6 +226,18 @@ nav {
 	background-repeat: no-repeat;
 	background-size: 20px;
 	background-color: white;
+}
+
+.external-email-wrapper{
+  padding : 0px 0px 25px;
+  margin-top: 25px;
+  border-top: 1px solid rgba(0, 0, 0, 0.2);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.external-email-wrapper .form-el-div input,
+.external-email-wrapper .form-el-div select{
+  padding : 15px 12px;
 }
 
 footer {
