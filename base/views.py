@@ -371,19 +371,32 @@ def add_referral(request):
     })
 
 
+
+
 def login(request):
     if request.method == "POST":
         email = request.POST.get('email')
         password = request.POST.get('password')
-        user = auth.authenticate(request, username=email, password=password) 
+        user = auth.authenticate(request, username=email, password=password)
+        
         if user is not None:
             auth.login(request, user)
-            return redirect('index')
+            
+            # Check if the sender has approved referrals
+            payment = Payment.objects.filter(user=user, status='Completed').exists()
+            approved_count = Referral.objects.filter(sender=user, accepted=True).count()
+            if payment:
+               return redirect('index')  #
+            if approved_count >= 3:
+                return redirect('payment')  # Redirect to payment page if approved referrals exist
+            else:
+                return redirect('status')  # Redirect to status page if no approved referral
+            
         else:
             messages.error(request, "Invalid email or password.")
-            return redirect('index')
+            return redirect('login')
+    
     return render(request, 'login.html')
-
 
 from django.shortcuts import render, redirect
 from django.core.mail import send_mail
