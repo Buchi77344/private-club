@@ -80,6 +80,16 @@
         display: block;
       }
 
+       .error {
+      outline: 2px solid red!important;
+    }
+    .error-message {
+      color: red;
+      font-size: 14px;
+      display: block;
+      margin-top: 5px;
+    }
+
       .btn-container {
         display: flex;
         justify-content: space-between;
@@ -247,12 +257,13 @@
                       class="d-block w-100"
                       name="title"
                       id="title-select"
-                      
+                      required
                     >
                       {% for kay, value in title_choices %}
                       <option value="{{value}}">{{value}}</option>
                       {% endfor %}
                     </select>
+                    <span class="error-message"></span>
                   </div>
 
                   <div class="row gap-3 gap-lg-0 ps-0">
@@ -263,8 +274,9 @@
                         type="text"
                         placeholder="Enter First Name"
                         id="first_name"
+                        required
                       />
-                     
+                     <span class="error-message"></span>
                     </div>
 
                     <div class="form-el-div border-incl col-lg-6 ps-3">
@@ -274,7 +286,9 @@
                         type="text"
                         placeholder="Enter Last Name"
                         id="last_name"
+                        required
                       />
+                      <span class="error-message"></span>
                     </div>
                   </div>
 
@@ -285,11 +299,13 @@
                         class="d-block w-100"
                         name="gender"
                         id="gender-select"
+                        required
                       >
                         {% for kay, value in gender_choices %}
                         <option value="{{value}}">{{value}}</option>
                         {% endfor %}
                       </select>
+                      <span class="error-message"></span>
                     </div>
 
                     <div class="form-el-div border-incl col-lg-6 ps-3">
@@ -299,7 +315,9 @@
                         type="date"
                         placeholder="Enter Last Name"
                         id="date_of_birth"
+                        required
                       />
+                      <span class="error-message"></span>
                     </div>
                   </div>
 
@@ -310,11 +328,13 @@
                         class="d-block w-100"
                         name="nationality"
                         id="Nationality-select"
+                        required
                       >
                         {% for code, name in countries %}
                         <option value="{{name}}">{{name}}</option>
                         {% endfor %}
                       </select>
+                      <span class="error-message"></span>
                     </div>
 
                     <div class="form-el-div border-incl col-lg-6 ps-3">
@@ -325,12 +345,14 @@
                         class="d-block w-100"
                         name="additional_nationality"
                         id="additional-nationality-select"
+                        required
                       >
                         <option value="">Select Additional Nationality</option>
                         {% for code, name in countries %}
                         <option value="{{name}}">{{name}}</option>
                         {% endfor %}
                       </select>
+                      <span class="error-message"></span>
                     </div>
                   </div>
 
@@ -342,12 +364,14 @@
                       class="d-block w-100"
                       name="relationship_status"
                       id="relationship-status-select"
+                      required
                     >
                       <option value="">Select Relationship Status</option>
                       {% for kay, value in relationship_status_choices %}
                       <option value="{{value}}">{{value}}</option>
                       {% endfor %}
                     </select>
+                    <span class="error-message"></span>
                   </div>
                 </div>
 
@@ -361,12 +385,6 @@
                 </div>
               </div>
                
-                
-              
-              
-              
-            
-
               <!-- Step 3 -->
               <div class="step">
                 <h3 class="primary-clr-text flex-center gap-3 pl-font fs-2 text-center mt-2">
@@ -396,7 +414,9 @@
                       name="town_city"
                       placeholder="Town/City"
                       id="town_city"
+                      required
                     />
+                    <span class="error-message"></span>
                   </div>
 
                   <div class="form-el-div">
@@ -1424,6 +1444,7 @@
           </div>
         </div>
       </div>
+
       <footer class="px-4 py-4 mt-5">
         <div
           class="d-flex flex-wrap gap-3 align-items-center justify-content-between w-full"
@@ -1533,34 +1554,106 @@
     <script>
       let currentStep = 0;
       const steps = document.querySelectorAll(".step");
-      const indicators = document.querySelectorAll(".step-indicator");
-      const progressFill = document.querySelector(".progress-line-fill");
+      const nextButtons = document.querySelectorAll(".next");
+      const prevButtons = document.querySelectorAll(".prev");
+      const form = document.getElementById("multiStepForm");
+      const progressBar = document.querySelector(".progress-line-fill");
+      const stepIndicators = document.querySelectorAll(".step-indicator");
 
       function showStep(step) {
         steps.forEach((el, index) => {
           el.classList.toggle("active", index === step);
         });
 
-        indicators.forEach((el, index) => {
-          el.classList.toggle("active", index <= step);
-        });
-
-        // Update progress bar fill
-        const progressWidth = Math.ceil((step / (steps.length - 1)) * 100);
-        console.log(steps.length);
-        progressFill.style.width = progressWidth + "%";
+        updateProgressBar(step);
+        updateStepIndicators(step);
       }
 
-      document.querySelectorAll(".next").forEach((button) => {
+      function updateProgressBar(step) {
+        const totalSteps = steps.length - 1;
+        const progress = ((step) / totalSteps) * 100;
+        progressBar.style.width = `${progress}%`;
+      }
+
+      function updateStepIndicators(step) {
+        stepIndicators.forEach((indicator, index) => {
+          indicator.classList.toggle("active", index <= step);
+        });
+      }
+
+      function validateField(input) {
+        console.log(input.parentElement.querySelector(".error-message"))
+        const errorSpan = input.parentElement.querySelector(".error-message");
+        let isValid = true;
+
+        if (!input.value.trim()) {
+          isValid = false;
+          input.classList.add("error");
+          errorSpan.textContent = "This field is required";
+        } else {
+          input.classList.remove("error");
+          errorSpan.textContent = "";
+        }
+
+        // Email validation
+        if (input.type === "email" && input.value) {
+          const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+          if (!emailPattern.test(input.value)) {
+            isValid = false;
+            input.classList.add("error");
+            errorSpan.textContent = "Enter a valid email";
+          }
+        }
+
+        // Date of birth validation (must be in the past)
+        if (input.type === "date" && input.value) {
+          const today = new Date();
+          const selectedDate = new Date(input.value);
+          if (selectedDate >= today) {
+            isValid = false;
+            input.classList.add("error");
+            errorSpan.textContent = "Date must be in the past";
+          }
+        }
+
+        return isValid;
+      }
+
+      function validateStep() {
+        const currentStepElement = steps[currentStep];
+        const requiredInputs = currentStepElement.querySelectorAll("input[required], select[required]");
+        let isStepValid = true;
+
+        requiredInputs.forEach((input) => {
+          if (!validateField(input)) {
+            isStepValid = false;
+          }
+        });
+
+        return isStepValid;
+      }
+
+      // Attach real-time validation to inputs
+      document.querySelectorAll("input[required], select[required]").forEach((input) => {
+        input.addEventListener("blur", () => validateField(input));
+        input.addEventListener("input", () => validateField(input));
+      });
+
+      console.log(document.querySelectorAll("input[required]"))
+
+      nextButtons.forEach((button) => {
         button.addEventListener("click", () => {
-          if (currentStep < steps.length - 1) {
-            currentStep++;
-            showStep(currentStep);
+          if (validateStep()) {
+            console.log(currentStep)
+            if (currentStep < steps.length - 1) {
+              currentStep++;
+              showStep(currentStep);
+            }
           }
         });
       });
 
-      document.querySelectorAll(".prev").forEach((button) => {
+      prevButtons.forEach((button) => {
         button.addEventListener("click", () => {
           if (currentStep > 0) {
             currentStep--;
@@ -1569,29 +1662,23 @@
         });
       });
 
-      document
-        .getElementById("multiStepForm")
-        .addEventListener("submit", (e) => {
+      form.addEventListener("submit", (e) => {
+        if (!validateStep()) {
           e.preventDefault();
-          alert("Form submitted successfully!");
-        });
+          return;
+        }
+        alert("Form submitted successfully!");
+      });
+
+      // Initialize step indicators and progress bar
+      // showStep(currentStep);
+
     </script>
     
   </body>
 </html>
 
-<style>
-  .input-error {
-    border: 1px solid red !important;
-    background-color: #ffe6e6 !important;
-}
 
-.error-message {
-    color: red;
-    font-size: 0.875rem;
-    margin-top: 5px;
-    display: none; /* Initially hidden */
-}
 
 
 
