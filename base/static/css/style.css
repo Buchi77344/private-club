@@ -13,6 +13,8 @@
   --gray-text-clr : #444444;
   --gray-text2-clr : #7D7D7D; 
   --gray-text3-clr : #979797; 
+  --gray-text4-clr : #000000B8;
+
 }
 
 svg {
@@ -24,6 +26,11 @@ button{
 	border : none;
 	outline : none;
 }
+
+input:focus{
+outline: 1px solid rgb(1, 91, 175);
+}
+
 
 p {
   margin-bottom: 0;
@@ -113,12 +120,27 @@ button {
   color: var(--gray-text3-clr);
 }
 
+.gray-text-4 {
+  color: var(--gray-text4-clr);
+}
+
 .primary-clr-text {
   color: var(--primary-clr);
 }
 
 .secondary-clr-text {
   color: var(--secondary-clr);
+}
+
+.row{
+  margin-left : 0!important;
+  margin-right : 0!important;
+}
+
+.custom-control{
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
 }
 
 nav {
@@ -195,6 +217,15 @@ nav {
   font-weight: 500;
 }
 
+.gradient-btn-util-fill{
+  padding: 7px 32px;
+  border-radius: 50px;
+  background-image: var(--gradient-purple);
+  color: white;
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
 .prev-btn {
   font-size: 1.5rem;
   border: none;
@@ -225,12 +256,15 @@ nav {
   background-color: rgb(195 231 231 / 20%);
   border-radius: 10px;
   padding: 40px 30px;
+  max-width : 800px;
+  margin-left : auto;
+  margin-right : auto;
 }
 
 .form-el-div {
   position: relative;
-
   padding-top: 25px;
+
 }
 
 .form-el-div.border-incl {
@@ -288,6 +322,7 @@ nav {
   background-repeat: no-repeat;
   background-size: 20px;
   background-color: white;
+  padding-right : 32px;
 }
 
 .external-email-wrapper {
@@ -321,7 +356,7 @@ nav {
 .primary-btn-group-util {
 	background-color: var(--primary-clr);
 	color: white;
-	padding: 7px 22px;
+	padding: 7px 15px;
 	border-radius : 10px;
 	display: flex;
 	gap: 15px;
@@ -380,7 +415,7 @@ nav {
 }
 
 .searchbar{
-	width : 75%;
+	width : 65%;
 	padding : 5px 10px;
 	display : flex;
 	align-items: center;
@@ -423,6 +458,7 @@ nav {
   background-color: #F0F0F5;
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
   align-items: center;
   padding : 7px 12px;
   border-radius : 5px;
@@ -440,6 +476,125 @@ nav {
 .form-check .form-check-input{
   margin-left : 0;
 }
+
+.py-control-wrapper{
+  margin-top : 15px;
+  padding: 0;
+}
+
+.py-control-wrapper label{
+  color: #4F5B76;
+  font-weight : 400;
+  margin-bottom: 10px;
+  font-size: 1.3rem;
+}
+
+.py-control-container{
+  border : 1px solid #E0E0E0;
+  box-shadow: 0px 2.8px 5.6px 0px #00000012;
+  padding : 10px 12px;
+  border-radius: 10px;
+}
+
+.py-control-container input{
+  border : none;
+  font-size : 1rem;
+  width : 100%;
+}
+
+.py-control-container select{
+  border : none;
+  font-size : 1rem;
+  appearance: none;
+  background: url("../img/svg/down-arrow-icon.svg") center right 12px;
+  background-repeat: no-repeat;
+  background-size: 20px;
+  width : 100%;
+  padding : 10px 12px;
+}
+
+.crd-input{
+  width : 100%;
+}
+
+.crd-input::placeholder{
+  color : rgb(1, 91, 175);
+  padding-left: 0;
+  margin-top: 3px;
+  display: block;
+}
+
+.crd-input:focus{
+  outline : 1px solid rgb(1, 91, 175);
+}
+
+.verify-py-icon{
+  width: 70px;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: black;
+  border-radius: 50%;
+  z-index: 20;
+  box-shadow: 0px 9.99px 26.65px 0px #00000029;
+
+}
+
+.graphics-banner{
+  background-image: url("../img/login-banner.jpg");
+  background-color: rgba(0, 0, 0, 0.8);
+  background-blend-mode: darken;
+  background-size : cover;
+  background-position : center;
+}
+
+.large-logo-span svg{
+  width : 150px;
+  height : 200px;
+}
+
+.content-container{
+  padding : 30px 45px;
+  background-color : white;
+  display : flex;
+  flex-direction : column;
+  justify-content: center;
+  align-items: stretch;
+}
+
+.mid-height-wrapper{
+  height : 90%;
+  display : flex;
+  flex-direction : column;
+  justify-content: space-between;
+}
+
+.secondary-form-el-container label{
+  margin-bottom: 10px;
+  display : inline-block;
+}
+
+.secondary-form-el{
+  padding : 10px 15px;
+  border: 1.2px solid #F1F1F1;
+  display: flex;
+  border-radius : 7px
+}
+
+.secondary-form-el input{
+  border : none;
+  outline : none;
+  background-color: transparent;
+  font-size: 18px;
+}
+
+
+
 footer {
   box-shadow: 1px -4px 5px rgba(0, 0, 0, 0.3);
   border-radius: 6px;
@@ -449,3 +604,46 @@ footer .social-container svg {
   width: 22px;
   height: 22px;
 }
+
+@media(max-width : 600px){
+  span.step-indicator{
+    width : 30px;
+    height : 30px;
+    font-size: .85rem;
+  }
+
+  .step-indicator-text{
+    font-size : .65rem;
+    width : auto;
+    text-align: center;
+  }
+  
+  .form-el-container{
+    padding : 40px 15px;
+  }
+
+  .row {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .form-el-div{
+    padding-left: 0!important;
+    padding-right: 0!important;
+  }
+
+  .form-check{
+    padding-left: 0!important;
+    padding-right: 0!important;
+  }
+
+  .member-item p,
+  .member-item span{
+    font-size : 1.1rem;
+  }
+
+  .content-container{
+    padding : 30px 20px;
+  }
+}
+
