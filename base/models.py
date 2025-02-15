@@ -131,3 +131,15 @@ class Event(models.Model):
 
     def __str__(self):
         return self.name
+
+
+
+class Ask(models.Model):
+    user = models.ForeignKey(CustomUser,  on_delete=models.CASCADE)
+    add_title = models.CharField(max_length=50)
+    discription =models.TextField()
+    date = models.DateTimeField()
+
+    def __str__(self):
+        return self.add_title
+

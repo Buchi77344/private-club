@@ -368,6 +368,47 @@ def AccountProfile(request):
 #         return redirect('dashboard')  # Redirect after approval
 
 #     return redirect('error_page')  # Handle invalid cases
+from django.http import JsonResponse
+from stream_chat import StreamChat
+from django.conf import settings
+
+# Initialize Stream Client
+client = StreamChat(api_key=settings.STREAM_API_KEY, api_secret=settings.STREAM_API_SECRET)
+
+# Function to generate a user token
+def get_token(request):
+    user_id = request.GET.get("user_id")
+    token = client.create_token(user_id)
+    return JsonResponse({"token": token, "api_key": settings.STREAM_API_KEY})
+
+
+from django.views.decorators.csrf import csrf_exempt
+from django.http import JsonResponse
+from stream_chat import StreamChat
+from django.conf import settings
 
 
 
+@csrf_exempt  # Disable CSRF (Only for testing)
+def send_message(request):
+    if request.method == "POST":
+        user_id = request.POST.get("user_id")
+        message = request.POST.get("message")
+
+        if not user_id or not message:
+            return JsonResponse({"error": "Missing user_id or message"}, status=400)
+
+        try:
+            channel = client.channel("messaging", "general")
+            channel.create(user_id)
+            response = channel.send_message({"text": message}, user_id)
+            return JsonResponse({"status": "success", "message": response})
+        except Exception as e:
+            return JsonResponse({"error": str(e)}, status=500)
+    return JsonResponse({"error": "Invalid request"}, status=400)
+
+
+
+
+def chat_page(request):
+    return render(request, "chat.html")
