@@ -42,9 +42,9 @@
       
               <div class="d-flex flex-wrap gap-4 justify-content-center mt-4">
                 <p class="text-white fs-4">Don’t have membership?</p>
-                <button class="gradient-btn-util-fill fs-5 text-white">
+              <a href="{% url "signup" %}"> <button class="gradient-btn-util-fill fs-5 text-white">
                   Become a Member
-                </button>
+                </button> </a> 
               </div>
             </div>
       
@@ -54,16 +54,17 @@
                     <div>
                         <h3 class = "fw-semibold fs-2">Hello Member!</h3>
                         <h5 class = "mt-3 fs-4 fw-medium gray-text-2">Welcome Back</h5>
-        
-                        <form class = "mt-5" action="">
-                            <div class = "secondary-form-el-container">
+                        {% for messages in  messages %} <h3>{{messages}}</h3> {% endfor %}
+                        <form method="POST" class = "mt-5" >
+                                        {% csrf_token %}
+                          <div class = "secondary-form-el-container">
                                 <label class = "fw-medium " for="">Email/Membership ID</label>
                                 <div class="secondary-form-el">
                                     <div class="d-flex gap-3 align-items-center w-100">
                                         <span class="flex-center">
                                             <img src="../static/img/svg/social/email.svg" alt="">
                                         </span>
-                                        <input class = "flex-fill" type="text" name="" placeholder = "Enter email address"  id="">
+                                        <input class = "flex-fill" type="email" name="email" placeholder = "Enter email address"  id="">
                                     </div>
                                 </div>
                             </div>
@@ -75,7 +76,7 @@
                                         <span class="flex-center">
                                             <img src="../static/img/svg/password.svg" alt="">
                                         </span>
-                                        <input class = "flex-fill" type="password" name="" placeholder = "Enter your password"  id="">   
+                                        <input class = "flex-fill" type="password" name="password" placeholder = "Enter your password"  id="">   
                                     </div>
                                     <span class="flex-center">
                                         <img src="../static/img/svg/eye-icon.svg" alt="">
@@ -99,7 +100,7 @@
         
                             </div>
     
-                            <button class="gradient-btn-util-fill pl-font w-100 mt-4 fs-5">Login</button>
+                            <button type="submit" class="gradient-btn-util-fill pl-font w-100 mt-4 fs-5">Login</button>
                         </form>
                     </div>
     
