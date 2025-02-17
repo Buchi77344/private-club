@@ -2,6 +2,7 @@ from django.shortcuts import render ,get_object_or_404
 from .models import *
 from django.contrib import auth
 from django.http import JsonResponse
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 def index(request):
     events = Event.objects.all()
@@ -69,152 +70,14 @@ from django.shortcuts import render
 from django.contrib.auth import get_user_model
 from django.contrib import messages
 from django_countries import countries
-from .models import ReferralRequest
+
 
 CustomUser = get_user_model()
 
 
 
-def signup(request):
-    if request.method == "POST":
-        # Collect form data
-        title = request.POST.get('title')
-        first_name = request.POST.get('first_name')
-        last_name = request.POST.get('last_name')
-        gender = request.POST.get('gender')
-        date_of_birth = request.POST.get('date_of_birth')
-        nationality = request.POST.get('nationality')
-        additional_nationality = request.POST.get('additional_nationality')
-        relationship_status = request.POST.get('relationship_status')
-        address_line = request.POST.get('address_line')
-        town_city = request.POST.get('town_city')
-        country = request.POST.get('country')
-        zipcode = request.POST.get('zipcode')
-        state = request.POST.get('state')
-        primary_email = request.POST.get('primary_email').strip().lower()
-        secondary_email = request.POST.get('secondary_email')
-        primary_phone = request.POST.get('primary_phone')
-        secondary_phone = request.POST.get('secondary_phone')
-        employment_status = request.POST.get('employment_status')
-        interests = request.POST.getlist('interests')
-        member_of_club = request.POST.get('member_of_club')
-        social_media_platform = request.POST.get('social_media_platform')
-        proof_of_id = request.FILES.get('proof_of_id')
-        profile_picture = request.FILES.get('profile_picture')
-        password = request.POST.get('password')
-        password1 = request.POST.get('password1')
-        selected_referrals = request.POST.getlist('referrals')
-
-        errors = {}
-
-        # Validate required fields
-        required_fields = {
-            'title': title, 'first_name': first_name, 'last_name': last_name, 'gender': gender, 
-            'date_of_birth': date_of_birth, 'nationality': nationality, 'relationship_status': relationship_status, 
-            'address_line': address_line, 'town_city': town_city, 'country': country, 'zipcode': zipcode, 
-            'primary_email': primary_email, 'primary_phone': primary_phone, 'employment_status': employment_status, 
-            'interests': interests, 'member_of_club': member_of_club, 'social_media_platform': social_media_platform, 
-            'proof_of_id': proof_of_id, 'profile_picture': profile_picture, 'password': password, 'password1': password1
-        }
-
-        for field, value in required_fields.items():
-            if not value:
-                errors[field] = f"{field.replace('_', ' ').capitalize()} is required."
-
-        # Validate email uniqueness
-        if CustomUser.objects.filter(email=primary_email).exists():
-            errors['primary_email'] = "An account with this email already exists."
-
-        # Validate phone uniqueness
-        if CustomUser.objects.filter(primary_phone=primary_phone).exists():
-            errors['primary_phone'] = "This phone number is already in use."
-
-        # Validate password match
-        if password != password1:
-            errors['password1'] = "Passwords do not match."
-
-        # Ensure passwords meet security standards
-        if len(password) < 8:
-            errors['password'] = "Password must be at least 8 characters long."
-
-        if not any(char.isdigit() for char in password):
-            errors['password'] = "Password must contain at least one number."
-
-        if not any(char.isalpha() for char in password):
-            errors['password'] = "Password must contain at least one letter."
-
-        # Ensure exactly 3 referrals are selected
-        if len(selected_referrals) != 3:
-            errors['referrals'] = "You must select exactly 3 members to support your registration."
-
-        # Validate referrals
-        selected_members = CustomUser.objects.filter(id__in=selected_referrals)
-        if len(selected_members) != 3:
-            errors['referrals'] = "Invalid referral selection."
-
-        # If there are any errors, return them to the form
-        if errors:
-            return render(request, 'signup.html', {
-                'errors': errors,
-                'title_choices': TITLE_CHOICES,
-                'gender_choices': GENDER_CHOICES,
-                'relationship_status_choices': RELATIONSHIP_STATUS_CHOICES,
-                'countries': countries,
-                'employment_status_choices': EMPLOYMENT_STATUS_CHOICES,
-                'interest_choices': INTEREST_CHOICES,
-                'members': CustomUser.objects.all(),  
-            })
-
-        # Create user
-        user = CustomUser(
-            username=primary_email,
-            email=primary_email,
-            first_name=first_name,
-            last_name=last_name,
-            title=title,
-            gender=gender,
-            date_of_birth=date_of_birth,
-            nationality=nationality,
-            additional_nationality=additional_nationality,
-            relationship_status=relationship_status,
-            address_line=address_line,
-            town_city=town_city,
-            country=country,
-            zipcode=zipcode,
-            primary_phone=primary_phone,
-            secondary_phone=secondary_phone,
-            employment_status=employment_status,
-            member_of_club=member_of_club,
-            social_media_platform=social_media_platform,
-            proof_of_id=proof_of_id,
-            profile_picture=profile_picture,
-            state=state,
-            secondary_email=secondary_email
-        )
-
-        # Set password securely and save user
-        user.set_password(password)
-        user.save()
-
-        # Create referral requests
-        for member in selected_members:
-            ReferralRequest.objects.create(
-                referred_user=user,
-                referring_user=member,
-                approved=False  # Pending approval
-            )
-
-        messages.success(request, "Registration successful! Please wait for approval from your referrals.")
-        return render(request, 'signup.html', {
-            'success': "Your registration has been submitted successfully!",
-            'title_choices': TITLE_CHOICES,
-            'gender_choices': GENDER_CHOICES,
-            'relationship_status_choices': RELATIONSHIP_STATUS_CHOICES,
-            'countries': countries,
-            'employment_status_choices': EMPLOYMENT_STATUS_CHOICES,
-            'interest_choices': INTEREST_CHOICES,
-            'members': CustomUser.objects.all(),  
-        })
+def signup(request):  
+     
 
     return render(request, 'signup.html', {
         'title_choices': TITLE_CHOICES,
@@ -223,7 +86,288 @@ def signup(request):
         'countries': countries,
         'employment_status_choices': EMPLOYMENT_STATUS_CHOICES,
         'interest_choices': INTEREST_CHOICES,
-        'members': CustomUser.objects.all(),  
+        'members': CustomUser.objects.filter(is_memeber=True),   
+    })
+
+
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+import json
+
+import json
+import logging
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from django.core.exceptions import ObjectDoesNotExist
+from django.db.utils import IntegrityError
+from .models import CustomUser
+
+# Setup logging
+logger = logging.getLogger(__name__)
+
+@csrf_exempt
+def signupx(request):
+    if request.method == "POST":
+        try:
+            # Decode request body safely
+            data = json.loads(request.body.decode('utf-8'))
+        except json.JSONDecodeError as e:
+            logger.error(f"JSON Decode Error: {str(e)}")
+            return JsonResponse({'success': False, 'error': 'Invalid JSON format'}, status=400)
+
+        try:
+            # Extracting user details
+            title = data.get('title')
+            first_name = data.get('first_name')
+            last_name = data.get('last_name')
+            gender = data.get('gender')
+            date_of_birth = data.get('date_of_birth')
+            nationality = data.get('nationality')
+            additional_nationality = data.get('additional_nationality')
+            relationship_status = data.get('relationship_status')
+            address_line = data.get('address_line')
+            town_city = data.get('town_city')
+            country = data.get('country')
+            zipcode = data.get('zipcode')
+            state = data.get('state')
+            primary_email = data.get('primary_email', '').strip().lower()
+            secondary_email = data.get('secondary_email')
+            primary_phone = data.get('primary_phone')
+            secondary_phone = data.get('secondary_phone')
+            employment_status = data.get('employment_status')
+            interests = data.get('interests', [])
+            member_of_club = data.get('member_of_club')
+            social_media_platform = data.get('social_media_platform')
+            password = data.get('password')
+            password1 = data.get('password1')
+
+            errors = {}
+
+            required_fields = {
+                'title': title, 'first_name': first_name, 'last_name': last_name, 'gender': gender, 
+                'date_of_birth': date_of_birth, 'nationality': nationality, 'relationship_status': relationship_status, 
+                'address_line': address_line, 'town_city': town_city, 'state':state, 'country': country, 'zipcode': zipcode, 
+                'primary_email': primary_email, 'employment_status': employment_status, 
+                'member_of_club': member_of_club, 'social_media_platform': social_media_platform, 
+                'password': password, 'password1': password1
+            }
+
+            # Check required fields
+            for field, value in required_fields.items():
+                if not value:
+                    errors[field] = f"{field.replace('_', ' ').capitalize()} is required."
+
+            # Check for duplicate email
+            if CustomUser.objects.filter(email=primary_email).exists():
+                errors['primary_email'] = "An account with this email already exists."
+
+            # Password validation
+            if password != password1:
+                errors['password1'] = "Passwords do not match."
+
+            if len(password) < 8:
+                errors['password'] = "Password must be at least 8 characters long."
+
+            if not any(char.isdigit() for char in password):
+                errors['password'] = "Password must contain at least one number."
+
+            if not any(char.isalpha() for char in password):
+                errors['password'] = "Password must contain at least one letter."
+
+            # Return errors if found
+            if errors:
+                return JsonResponse({'success': False, 'errors': errors}, status=400)
+
+            # Create the user
+            user = CustomUser(
+                username=primary_email,
+                email=primary_email,
+                primary_email= primary_email,
+                first_name=first_name,
+                last_name=last_name,
+                title=title,
+                gender=gender,
+                date_of_birth=date_of_birth,
+                nationality=nationality,
+                additional_nationality=additional_nationality,
+                relationship_status=relationship_status,
+                address_line=address_line,
+                town_city=town_city,
+                country=country,
+                zipcode=zipcode,
+                primary_phone=primary_phone,
+                secondary_phone=secondary_phone,
+                employment_status=employment_status,
+                member_of_club=member_of_club,
+                social_media_platform=social_media_platform,
+                state=state,
+                secondary_email=secondary_email
+            )
+
+            user.set_password(password)
+            user.save()
+
+            return JsonResponse({'success': True, 'message': "Registration successful! Please wait for approval from your referrals."}, status=201)
+
+        except IntegrityError as e:
+            logger.error(f"Database Integrity Error: {str(e)}")
+            return JsonResponse({'success': False, 'error': 'A database error occurred. Please try again.'}, status=500)
+
+        except Exception as e:
+            logger.error(f"Unexpected Error: {str(e)}")
+            return JsonResponse({'success': False, 'error': 'An unexpected error occurred. Please contact support.'}, status=500)
+
+    return JsonResponse({'error': 'Invalid request method'}, status=405)
+
+
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+import json
+
+
+
+import json
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth import get_user_model
+  # Import DeclinedReferral model
+
+CustomUser = get_user_model()
+
+@csrf_exempt
+def send_referrals(request):
+    if request.method == "POST":
+        try:
+            data = json.loads(request.body.decode('utf-8'))
+            sender_id = data.get('sender_id')
+            selected_users = data.get('selected_users', [])
+
+            if not sender_id or len(selected_users) != 3:
+                return JsonResponse({'success': False, 'error': "You must select exactly 3 members."}, status=400)
+
+            sender = CustomUser.objects.get(id=sender_id)
+            existing_referrals = Referral.objects.filter(sender=sender)
+
+            if existing_referrals.count() == 0:
+                # If no referrals exist, create new ones
+                for receiver_id in selected_users:
+                    receiver = CustomUser.objects.get(id=receiver_id)
+                    Referral.objects.create(sender=sender, receiver=receiver)
+
+            elif existing_referrals.count() == 3:
+                # If exactly 3 exist, update them
+                for referral, new_receiver_id in zip(existing_referrals, selected_users):
+                    new_receiver = CustomUser.objects.get(id=new_receiver_id)
+
+                    if referral.accepted is False:  # If the referral was declined
+                        DeclinedReferral.objects.create(sender=sender, receiver=referral.receiver)
+
+                    referral.receiver = new_receiver  # Update receiver
+                    referral.accepted = None  # Reset status to pending
+                    referral.save()
+
+            else:
+                return JsonResponse({'success': False, 'error': "Invalid number of existing referrals. Contact support."}, status=400)
+
+            return JsonResponse({'success': True, 'message': "Referrals updated successfully!"}, status=200)
+
+        except CustomUser.DoesNotExist:
+            return JsonResponse({'success': False, 'error': "User not found."}, status=404)
+
+        except Exception as e:
+            return JsonResponse({'success': False, 'error': str(e)}, status=500)
+
+    return JsonResponse({'error': 'Invalid request method'}, status=405)
+
+
+def status(request):
+    user = request.user  # Get the logged-in user
+
+    # Count the number of declined referrals
+    declined_count = DeclinedReferral.objects.filter(sender=user).count()
+
+    if declined_count >= 3:
+        # Delete only the three Referral objects associated with the user
+        Referral.objects.filter(sender=user).delete()
+
+        # Get the declined referrals to display
+        declined_referrals = DeclinedReferral.objects.filter(sender=user)
+
+        context = {"status": "declined", "declined_referrals": declined_referrals}
+    else:
+        # Get active referrals if the user has not been blocked
+        sent_referrals = Referral.objects.filter(sender=user).select_related('receiver')
+
+        context = {"referrals": sent_referrals, "status": None}
+
+    return render(request, 'status-page.html', context)
+
+@login_required(login_url='login')
+def check_referral_status(request):
+    user = request.user
+    declined_count = Referral.objects.filter(sender=user, accepted=False).count()
+
+    if declined_count >= 3:
+        return JsonResponse({"status": "blocked", "message": "Please wait for 6 months before you log in."})
+
+    if 1 <= declined_count < 3:
+        return JsonResponse({"status": "pending", "message": "You need to add other referrals."})
+    if declined_count >= 0:
+        return JsonResponse({"status": "good", "message": "Still Pending."})
+    
+
+    return JsonResponse({"status": "allowed"})
+
+
+
+@login_required(login_url='login')
+def check_declined_referrals(request):
+    user = request.user
+    declined_count = DeclinedReferral.objects.filter(sender=user).count()
+
+    if declined_count >= 3:
+        return JsonResponse({"status": "blocked", "message": "Please wait for 6 months before you log in."})
+
+    return JsonResponse({"status": "allowed"})
+
+
+
+def check_referral_approval(request):
+    user = request.user  # Get the logged-in user
+
+    # Get all referrals associated with the user
+    approved_count = Referral.objects.filter(sender=user, accepted=True).count()
+
+    if approved_count == 3:
+        return JsonResponse({"status": "approved", "redirect_url": "/payment/"})  # Redirect to payment
+    else:
+        return JsonResponse({"status": "pending"})
+    
+def payment(request):
+    return render (request, 'payment.html')
+
+
+
+from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
+from .models import CustomUser, Referral
+
+@login_required(login_url='login')
+def add_referral(request):
+    user = request.user  # Get logged-in user
+
+    # Get users the sender has referred (excluding declined ones)
+    sent_referrals = Referral.objects.filter(sender=user).exclude(accepted=False)
+
+    # Extract the user IDs of pending/approved referrals
+    checked_member_ids = sent_referrals.values_list('receiver_id', flat=True)
+
+    # Get all eligible members (exclude those already declined)
+    all_members = CustomUser.objects.exclude(id__in=Referral.objects.filter(sender=user, accepted=False).values_list('receiver_id', flat=True))
+
+    return render(request, "add_referral.html", {
+        "members": all_members,
+        "checked_members": list(checked_member_ids)
     })
 
 
@@ -231,13 +375,14 @@ def login(request):
     if request.method == "POST":
         email = request.POST.get('email')
         password = request.POST.get('password')
-        user = auth.authenticate(request, username=email, password=password)
+        user = auth.authenticate(request, username=email, password=password) 
         if user is not None:
             auth.login(request, user)
             return redirect('index')
         else:
             messages.error(request, "Invalid email or password.")
-            return render(request, 'login.html')
+            return redirect('index')
+    return render(request, 'login.html')
 
 
 from django.shortcuts import render, redirect

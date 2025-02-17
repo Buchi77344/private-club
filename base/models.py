@@ -62,11 +62,12 @@ class CustomUser(AbstractUser):
     town_city = models.CharField(max_length=100)
     country = models.CharField(max_length=100)
     zipcode = models.CharField(max_length=20)
+    state = models.CharField(max_length=100,blank=True, null=True)
     
     # Contact Details
     primary_email = models.EmailField(unique=True)
     secondary_email = models.EmailField(blank=True, null=True)
-    primary_phone = models.CharField(max_length=20)
+    primary_phone = models.CharField(max_length=20 , blank=True, null=True)
     secondary_phone = models.CharField(max_length=20, blank=True, null=True)
 
     # Employment & Interests
@@ -83,31 +84,45 @@ class CustomUser(AbstractUser):
     profile_picture = models.ImageField(upload_to='uploads/profile_pics/', blank=True, null=True)
 
     referrals = models.ManyToManyField('self', symmetrical=False, blank=True, related_name='referred_users')
+    is_memeber = models.BooleanField(default=False)
 
-    def save(self, *args, **kwargs):
-        from django.contrib.auth import get_user_model
-        User = get_user_model()
+    # def save(self, *args, **kwargs):
+    #     from django.contrib.auth import get_user_model
+    #     User = get_user_model()
         
-        # If there are no users in the system, allow registration without referrals
-        if User.objects.count() == 0:
-            super().save(*args, **kwargs)
-        else:
-            if self.referrals.count() < 3:
-                raise ValueError("You must select at least 3 referrals")
-            super().save(*args, **kwargs)
+    #     # If there are no users in the system, allow registration without referrals
+    #     if User.objects.count() == 0:
+    #         super().save(*args, **kwargs)
+    #     else:
+    #         if self.referrals.count() < 3:
+    #             raise ValueError("You must select at least 3 referrals")
+    #         super().save(*args, **kwargs)
   
 
     def __str__(self):
-        return f"{self.username} {self.last_name} ({self.primary_email})"
+        return f"{self.username} {self.last_name} "
     
 
-class ReferralRequest(models.Model):
-    referred_user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='incoming_requests')
-    referring_user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='outgoing_requests')
-    approved = models.BooleanField(default=False)
+class Referral(models.Model):
+    sender = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='sent_referrals')
+    receiver = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='received_referrals')
+    accepted = models.BooleanField(null=True, blank=True)  # None = Pending, True = Accepted, False = Declined
+    sent_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"{self.referring_user} referred {self.referred_user} - {'Approved' if self.approved else 'Pending'}"
+        return f"{self.sender} → {self.receiver} ({'Accepted' if self.accepted else 'Declined' if self.accepted == False else 'Pending'})"
+
+
+
+
+
+class DeclinedReferral(models.Model):
+    sender = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name="declined_referrals")
+    receiver = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name="declined_by")
+    declined_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.sender} declined by {self.receiver} on {self.declined_at.strftime('%Y-%m-%d %H:%M')}"
 
 
 

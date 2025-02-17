@@ -158,6 +158,7 @@
               class="mt-5 pt-2"
               enctype="multipart/form-data"
               id="multiStepForm"
+             
             >
               {% csrf_token %}
               <!-- Step 1 -->
@@ -246,6 +247,7 @@
                       class="d-block w-100"
                       name="title"
                       id="title-select"
+                      
                     >
                       {% for kay, value in title_choices %}
                       <option value="{{value}}">{{value}}</option>
@@ -260,7 +262,9 @@
                         class="w-100"
                         type="text"
                         placeholder="Enter First Name"
+                        id="first_name"
                       />
+                     
                     </div>
 
                     <div class="form-el-div border-incl col-lg-6 ps-3">
@@ -269,6 +273,7 @@
                         class="w-100"
                         type="text"
                         placeholder="Enter Last Name"
+                        id="last_name"
                       />
                     </div>
                   </div>
@@ -293,6 +298,7 @@
                         class="w-100"
                         type="date"
                         placeholder="Enter Last Name"
+                        id="date_of_birth"
                       />
                     </div>
                   </div>
@@ -354,6 +360,12 @@
                   </button>
                 </div>
               </div>
+               
+                
+              
+              
+              
+            
 
               <!-- Step 3 -->
               <div class="step">
@@ -372,6 +384,7 @@
                       type="text"
                       placeholder="Address Line 1"
                       name="address_line"
+                      id="address_line"
                     />
                   </div>
 
@@ -382,6 +395,7 @@
                       type="text"
                       name="town_city"
                       placeholder="Town/City"
+                      id="town_city"
                     />
                   </div>
 
@@ -406,30 +420,31 @@
                       type="text"
                       placeholder="Postcode/Zipcode"
                       name="zipcode"
+                      id="zipcode"
                     />
                   </div>
 
                   <div class="external-email-wrapper">
                     <div class="form-el-div">
                       <label for="title-select">Primary Email</label>
-                      <input class="large-h-formEl w-100" type="text" placeholder="" />
+                      <input class="large-h-formEl w-100" id="primary_email" type="email" placeholder="" />
                     </div>
 
                     <div class="form-el-div">
                       <label for="title-select">Secondary Email</label>
-                      <input class="large-h-formEl w-100" type="text" placeholder="" />
+                      <input class="large-h-formEl w-100" id ="secondary_email" type="email" placeholder="" />
                     </div>
                   </div>
 
                   <div class="form-el-div">
                     <label for="Country-select">State</label>
-                    <select class="d-block w-100" name="" id="Country-select">
-                      <option value="">Select State</option>
-                      <option value="South Korea">South Korea</option>
-                      <option value="India">India</option>
-                      <option value="Ghana">Ghana</option>
-                      <option value="Morocco">Morocco</option>
-                    </select>
+                    <input
+                    class="w-100"
+                    type="text"
+                    placeholder="Postcode/Zipcode"
+                    name="zipcode"
+                    id="state"
+                  />
                   </div>
 
                   <div class="phone-container">
@@ -438,8 +453,8 @@
                       <div class="row ms-0 gap-4 me-0">
                         <select
                           class="col-md-3"
-                          name=""
-                          id="Country-Code-select"
+                          name="primary_phone"
+                          id="primary_phone"
                         >
                           <option value="">Country Code</option>
                           <option value="South Korea">South Korea</option>
@@ -460,7 +475,7 @@
                         <select
                           class="col-md-3"
                           name=""
-                          id="Country-Code-select"
+                          id="secondary_phone"
                         >
                           <option value="">Country Code</option>
                           <option value="South Korea">South Korea</option>
@@ -503,7 +518,7 @@
                     <select
                       class="d-block w-100"
                       name=""
-                      id="employment-status-select"
+                      id="employment_status"
                     >
                       <option value="">Select option</option>
                       <option value="South Korea">South Korea</option>
@@ -831,7 +846,7 @@
 
                   <div class="form-el-div">
                     <label class = "ur" for="club-member">Are you a member of any other club?</label>
-                    <input type="text" class = "large-h-formEl w-100" name="" id="">
+                    <input type="text" class = "large-h-formEl w-100" name="" id="member_of_club">
                   </div>
 
                   <div class="form-el-div">
@@ -839,7 +854,7 @@
                     <select
                     class="d-block w-100"
                     name=""
-                    id="employment-status-select"
+                    id="social_media_platform"
                     >
                       <option value="">Select option</option>
                       <option value="South Korea">South Korea</option>
@@ -918,12 +933,12 @@
 
                   <div class="form-el-div">
                     <label for="club-member">Password</label>
-                    <input class = "w-100" type="text" placeholder = "Enter your password">
+                    <input class = "w-100" type="text" id="password" placeholder = "Enter your password">
                   </div>
 
                   <div class="form-el-div">
                     <label for="club-member">Confirm Password</label>
-                    <input class = "w-100" type="text" placeholder = "Enter your password">
+                    <input class = "w-100" type="text" id="password1" placeholder = "Enter your password">
                   </div>
 
                 </div>
@@ -932,7 +947,7 @@
                   <button type="button" class="prev-btn fw-bold prev">
                     BACK
                   </button>
-                  <button type="button" class="continue-btn next">
+                  <button type="button" id="continueButton" class="continue-btn next">
                     Continue →
                   </button>
                 </div>
@@ -972,8 +987,43 @@
                       </div>
   
                     </div>
-  
+                      
                     <div class = "members-container pt-4">
+                      {% if members %}
+                      {% for member  in  members %}
+                      <div class="member-item">
+                        <div class="form-check d-flex align-items-center gap-2 ps-0">
+                          <input
+                            class="form-check-input"
+                            type="checkbox"
+                            value="{{ member.id }}"
+                            name = "referrals"
+                            id="flexCheckDefault1"
+                          />
+                          <div
+                            class="form-check-label mb-0 ms-3 fs-6 d-flex gap-2 align-items-center"
+                            for=""
+                          >
+                            <img class = "member-img" src="../static/img/member-demo.jpg" alt="">
+                            <span class = "fw-semibold lt-font fs-4">{{member.first_name}} {{member.last_name}} </span>
+                          </div>
+                        </div>
+  
+                        <p class = "gray-text-2 font-semibold fs-4 ">{{member.email|truncatechars:14}}</p>
+  
+                        <div class="d-flex justify-content-between gap-4">
+                          <p class = "gray-text-2 font-semibold fs-4 ">Member</p>
+                          <button type = "button" class="flex-center">
+                            <img src="../static/img/svg/more-gray.svg" alt="more icon">
+                          </button>
+                        </div>
+                      </div>
+                      <input type="hidden" id="user_id" value="{{ request.user.id }}">
+
+                      {% endfor %}
+                      
+                      {% else %}
+  
                       <div class="member-item">
                         <div class="form-check d-flex align-items-center gap-2 ps-0">
                           <input
@@ -1113,34 +1163,7 @@
                           </button>
                         </div>
                       </div>
-  
-                      <div class="member-item">
-                        <div class="form-check d-flex align-items-center gap-2 ps-0">
-                          <input
-                            class="form-check-input"
-                            type="checkbox"
-                            value=""
-                            name = ""
-                            id="flexCheckDefault1"
-                          />
-                          <div
-                            class="form-check-label mb-0 ms-3 fs-6 d-flex gap-2 align-items-center"
-                            for=""
-                          >
-                            <img class = "member-img" src="../static/img/member-demo.jpg" alt="">
-                            <span class = "fw-semibold lt-font fs-4">Andrew Bojangles</span>
-                          </div>
-                        </div>
-  
-                        <p class = "gray-text-2 font-semibold fs-4 ">some@gmail.com</p>
-  
-                        <div class="d-flex justify-content-between gap-4">
-                          <p class = "gray-text-2 font-semibold fs-4 ">Member</p>
-                          <button type = "button" class="flex-center">
-                            <img src="../static/img/svg/more-gray.svg" alt="more icon">
-                          </button>
-                        </div>
-                      </div>
+                      {% endif %}
   
   
                       <p class = "gray-text-2 font-semibold fs-5 ">Note: you can select only 3 members</p>
@@ -1388,7 +1411,7 @@
                 </div>
                </div>
 
-                <div class="btn-container align-items-center">
+                <div class="btn-container d-flex justify-content-between align-items-center">
                   <button type="button" class="prev-btn fw-bold prev">
                     BACK
                   </button>
@@ -1556,3 +1579,155 @@
     
   </body>
 </html>
+
+<style>
+  .input-error {
+    border: 1px solid red !important;
+    background-color: #ffe6e6 !important;
+}
+
+.error-message {
+    color: red;
+    font-size: 0.875rem;
+    margin-top: 5px;
+    display: none; /* Initially hidden */
+}
+
+
+
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+      const form = document.getElementById('multiStepForm');
+      const continueButton = document.getElementById('continueButton');
+
+      if (!form) {
+          console.error('Error: Form with id "signupForm" not found.');
+          return;
+      }
+      if (!continueButton) {
+          console.error('Error: Button with id "continueButton" not found.');
+          return;
+      }
+
+      continueButton.addEventListener('click', function () {
+          console.log('Continue button clicked');
+          form.dispatchEvent(new Event('submit', { bubbles: true, cancelable: true }));
+      });
+
+      form.addEventListener('submit', async function (event) {
+          event.preventDefault();
+
+          // Check if any field is missing
+          const fieldIds = [
+              'title-select', 'first_name', 'last_name', 'gender-select',
+              'date_of_birth', 'Nationality-select', 'additional-nationality-select',
+              'relationship-status-select', 'address_line', 'town_city', 'Country-select',
+              'zipcode', 'state', 'primary_email', 'secondary_email',
+              'primary_phone', 'secondary_phone', 'employment_status',
+              'member_of_club', 'social_media_platform', 'password', 'password1'
+          ];
+
+          let missingFields = [];
+
+          fieldIds.forEach(id => {
+              if (!document.getElementById(id)) {
+                  missingFields.push(id);
+              }
+          });
+
+          if (missingFields.length > 0) {
+              console.error('Error: The following fields are missing:', missingFields.join(', '));
+              return;
+          }
+
+          const formData = {
+              title: document.getElementById('title-select').value,
+              first_name: document.getElementById('first_name').value,
+              last_name: document.getElementById('last_name').value,
+              gender: document.getElementById('gender-select').value,
+              date_of_birth: document.getElementById('date_of_birth').value,
+              nationality: document.getElementById('Nationality-select').value,
+              additional_nationality: document.getElementById('additional-nationality-select').value,
+              relationship_status: document.getElementById('relationship-status-select').value,
+              address_line: document.getElementById('address_line').value,
+              town_city: document.getElementById('town_city').value,
+              country: document.getElementById('Country-select').value,
+              zipcode: document.getElementById('zipcode').value,
+              state: document.getElementById('state').value,
+              primary_email: document.getElementById('primary_email').value,
+              secondary_email: document.getElementById('secondary_email').value,
+              primary_phone: document.getElementById('primary_phone').value,
+              secondary_phone: document.getElementById('secondary_phone').value,
+              employment_status: document.getElementById('employment_status').value,
+              
+              member_of_club: document.getElementById('member_of_club').value,
+              social_media_platform: document.getElementById('social_media_platform').value,
+              password: document.getElementById('password').value,
+              password1: document.getElementById('password1').value,
+              
+          };
+
+          try {
+              const response = await fetch('/signupx/', {
+                  method: 'POST',
+                  headers: {
+                      'Content-Type': 'application/json'
+                  },
+                  body: JSON.stringify(formData)
+              });
+
+              const result = await response.json();
+              if (result.success) {
+                  alert(result.message);
+              } else {
+                  console.log(result.errors);
+              }
+          } catch (error) {
+              console.error('Error:', error);
+          }
+      });
+  });
+</script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const sendReferralBtn = document.querySelector(".primary-btn-group-util");
+    
+    sendReferralBtn.addEventListener("click", async function () {
+        const selectedMembers = [...document.querySelectorAll('input[name="referrals"]:checked')].map(e => e.value);
+        const senderId = document.getElementById('user_id').value; // Get the logged-in user ID
+
+        if (selectedMembers.length !== 3) {
+            alert("You must select exactly 3 members.");
+            return;
+        }
+
+        try {
+            const response = await fetch("/send-referrals", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    sender_id: senderId,
+                    selected_users: selectedMembers,
+                }),
+            });
+
+            const result = await response.json();
+
+            if (result.success) {
+                alert("Request sent successfully!");
+                window.location.href = "/status/"; // Redirect to status page
+            } else {
+                alert("Error: " + result.error);
+            }
+        } catch (error) {
+            console.error("Error:", error);
+            alert("Something went wrong. Please try again.");
+        }
+    });
+});
+</script>
