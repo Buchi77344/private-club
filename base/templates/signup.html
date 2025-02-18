@@ -274,6 +274,7 @@
                         type="text"
                         placeholder="Enter First Name"
                         id="first_name"
+                        name="first_name" 
                         required
                       />
                      <span class="error-message"></span>
@@ -286,6 +287,7 @@
                         type="text"
                         placeholder="Enter Last Name"
                         id="last_name"
+                        name="last_name"
                         required
                       />
                       <span class="error-message"></span>
@@ -316,6 +318,7 @@
                         placeholder="Enter Last Name"
                         id="date_of_birth"
                         required
+                        name="date_of_birth"
                       />
                       <span class="error-message"></span>
                     </div>
@@ -447,12 +450,12 @@
                   <div class="external-email-wrapper">
                     <div class="form-el-div">
                       <label for="title-select">Primary Email</label>
-                      <input class="large-h-formEl w-100" id="primary_email" type="email" placeholder="" />
+                      <input class="large-h-formEl w-100" name="primary_email" id="primary_email" type="email" placeholder="" />
                     </div>
 
                     <div class="form-el-div">
                       <label for="title-select">Secondary Email</label>
-                      <input class="large-h-formEl w-100" id ="secondary_email" type="email" placeholder="" />
+                      <input class="large-h-formEl w-100" name="secondary_email" id ="secondary_email" type="email" placeholder="" />
                     </div>
                   </div>
 
@@ -462,7 +465,7 @@
                     class="w-100"
                     type="text"
                     placeholder="Postcode/Zipcode"
-                    name="zipcode"
+                    name="state"
                     id="state"
                   />
                   </div>
@@ -473,7 +476,7 @@
                       <div class="row ms-0 gap-4 me-0">
                         <select
                           class="col-md-3"
-                          name="primary_phone"
+                          name=""
                           id="primary_phone"
                         >
                           <option value="">Country Code</option>
@@ -486,6 +489,7 @@
                           class="flex-grow-1 flex-shrink-1 flex-basis-0"
                           type="text"
                           placeholder="Telephone"
+                          name="primary_phone"
                         />
                       </div>
                       <label style = "margin-top : 12px; display : inline-block" for="Country-select"
@@ -507,6 +511,7 @@
                           class="flex-grow-1 flex-shrink-1 flex-basis-0"
                           type="text"
                           placeholder="Mobile"
+                          name="secondary_phone"
                         />
                       </div>
                     </div>
@@ -537,7 +542,7 @@
                     <label for="Country-select">Employment Status</label>
                     <select
                       class="d-block w-100"
-                      name=""
+                      name="employment_status"
                       id="employment_status"
                     >
                       <option value="">Select option</option>
@@ -866,14 +871,14 @@
 
                   <div class="form-el-div">
                     <label class = "ur" for="club-member">Are you a member of any other club?</label>
-                    <input type="text" class = "large-h-formEl w-100" name="" id="member_of_club">
+                    <input type="text" class = "large-h-formEl w-100" name="member_of_club" id="member_of_club">
                   </div>
 
                   <div class="form-el-div">
                     <label for="club-member">Preferred Social Media Platform</label>
                     <select
                     class="d-block w-100"
-                    name=""
+                    name="social_media_platform"
                     id="social_media_platform"
                     >
                       <option value="">Select option</option>
@@ -925,11 +930,11 @@
 
                   <div class = "border-bt-wrap">
                     <div class="light-block-util">
-                      <h4 class = "pl-font primary-clr-text fs-3 font-medium mb-0">Upload Proof of ID</h4>
-                      <p class ="text-center">Please upload a clear photo of your proof of ID e.g. Driving license or passport</p>
+                      <h4 class = "pl-font primary-clr-text fs-3 font-medium mb-0">Upload Profile Picture</h4>
+                      <p class ="text-center">Please upload a clear photo of yourself.</p>
                       <label class = "upload-util-el bg-primary-util mt-2" for="upload-pic">
-                        <input class= "upload-pic-input" type="file" name="" id="upload-pic">
-                        <span class = "font-bold fs-5 text-white">Upload Files</span>
+                        <input class= "upload-pic-input" type="file" name="profile_picture" id="profile_picture">
+                        <span class = "font-bold fs-5 text-white">Upload picture</span>
                         <span class="flex-center">
                           <img src="../static/img/svg/upload.svg" alt="upload icon">
                         </span>
@@ -942,7 +947,7 @@
                       <h4 class = "pl-font primary-clr-text fs-3 font-medium mb-0">Upload Proof of ID</h4>
                       <p class = "text-center">Please upload a clear photo of your proof of ID e.g. Driving license or passport</p>
                       <label class = "upload-util-el bg-primary-util mt-2" for="upload-pic">
-                        <input class= "upload-pic-input" type="file" name="" id="upload-pic">
+                        <input class= "upload-pic-input" type="file" name="id_proof" id="id_proof">
                         <span class = "font-bold fs-5 text-white">Upload Files</span>
                         <span class="flex-center">
                           <img src="../static/img/svg/upload.svg" alt="upload icon">
@@ -953,12 +958,12 @@
 
                   <div class="form-el-div">
                     <label for="club-member">Password</label>
-                    <input class = "w-100" type="text" id="password" placeholder = "Enter your password">
+                    <input class = "w-100" type="text" name="password" id="password" placeholder = "Enter your password">
                   </div>
 
                   <div class="form-el-div">
                     <label for="club-member">Confirm Password</label>
-                    <input class = "w-100" type="text" id="password1" placeholder = "Enter your password">
+                    <input class = "w-100" type="text" name="password1" id="password1" placeholder = "Enter your password">
                   </div>
 
                 </div>
@@ -967,7 +972,7 @@
                   <button type="button" class="prev-btn fw-bold prev">
                     BACK
                   </button>
-                  <button type="button" id="continueButton" class="continue-btn next">
+                  <button type="submit" id="continueButton" class="continue-btn next">
                     Continue →
                   </button>
                 </div>
@@ -1685,97 +1690,7 @@
 </style>
 
 <script>
-  document.addEventListener('DOMContentLoaded', function () {
-      const form = document.getElementById('multiStepForm');
-      const continueButton = document.getElementById('continueButton');
-
-      if (!form) {
-          console.error('Error: Form with id "signupForm" not found.');
-          return;
-      }
-      if (!continueButton) {
-          console.error('Error: Button with id "continueButton" not found.');
-          return;
-      }
-
-      continueButton.addEventListener('click', function () {
-          console.log('Continue button clicked');
-          form.dispatchEvent(new Event('submit', { bubbles: true, cancelable: true }));
-      });
-
-      form.addEventListener('submit', async function (event) {
-          event.preventDefault();
-
-          // Check if any field is missing
-          const fieldIds = [
-              'title-select', 'first_name', 'last_name', 'gender-select',
-              'date_of_birth', 'Nationality-select', 'additional-nationality-select',
-              'relationship-status-select', 'address_line', 'town_city', 'Country-select',
-              'zipcode', 'state', 'primary_email', 'secondary_email',
-              'primary_phone', 'secondary_phone', 'employment_status',
-              'member_of_club', 'social_media_platform', 'password', 'password1'
-          ];
-
-          let missingFields = [];
-
-          fieldIds.forEach(id => {
-              if (!document.getElementById(id)) {
-                  missingFields.push(id);
-              }
-          });
-
-          if (missingFields.length > 0) {
-              console.error('Error: The following fields are missing:', missingFields.join(', '));
-              return;
-          }
-
-          const formData = {
-              title: document.getElementById('title-select').value,
-              first_name: document.getElementById('first_name').value,
-              last_name: document.getElementById('last_name').value,
-              gender: document.getElementById('gender-select').value,
-              date_of_birth: document.getElementById('date_of_birth').value,
-              nationality: document.getElementById('Nationality-select').value,
-              additional_nationality: document.getElementById('additional-nationality-select').value,
-              relationship_status: document.getElementById('relationship-status-select').value,
-              address_line: document.getElementById('address_line').value,
-              town_city: document.getElementById('town_city').value,
-              country: document.getElementById('Country-select').value,
-              zipcode: document.getElementById('zipcode').value,
-              state: document.getElementById('state').value,
-              primary_email: document.getElementById('primary_email').value,
-              secondary_email: document.getElementById('secondary_email').value,
-              primary_phone: document.getElementById('primary_phone').value,
-              secondary_phone: document.getElementById('secondary_phone').value,
-              employment_status: document.getElementById('employment_status').value,
-              
-              member_of_club: document.getElementById('member_of_club').value,
-              social_media_platform: document.getElementById('social_media_platform').value,
-              password: document.getElementById('password').value,
-              password1: document.getElementById('password1').value,
-              
-          };
-
-          try {
-              const response = await fetch('/signupx/', {
-                  method: 'POST',
-                  headers: {
-                      'Content-Type': 'application/json'
-                  },
-                  body: JSON.stringify(formData)
-              });
-
-              const result = await response.json();
-              if (result.success) {
-                  alert(result.message);
-              } else {
-                  console.log(result.errors);
-              }
-          } catch (error) {
-              console.error('Error:', error);
-          }
-      });
-  });
+ 
 </script>
 
 <script>

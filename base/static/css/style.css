@@ -408,7 +408,8 @@ nav {
 .upload-util-el .upload-pic-input {
   position: absolute;
   inset: 0;
-  visibility: hidden;
+  opacity: 0;
+  cursor: pointer;
 }
 
 .border-bt-wrap {
