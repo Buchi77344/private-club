@@ -90,6 +90,11 @@
       margin-top: 5px;
     }
 
+    .error-message.check{
+      position: absolute;
+      bottom: -20px;
+    }
+
       .btn-container {
         display: flex;
         justify-content: space-between;
@@ -406,7 +411,10 @@
                       placeholder="Address Line 1"
                       name="address_line"
                       id="address_line"
+                      required
                     />
+                    <span class="error-message"></span>
+
                   </div>
 
                   <div class="form-el-div">
@@ -428,12 +436,15 @@
                       class="d-block w-100"
                       name="country"
                       id="Country-select"
+                      required
                     >
                       <option value="">Select Country</option>
                       {% for code, name in countries %}
                       <option value="{{name}}">{{name}}</option>
                       {% endfor %}
                     </select>
+                    <span class="error-message"></span>
+
                   </div>
 
                   <div class="form-el-div">
@@ -444,18 +455,23 @@
                       placeholder="Postcode/Zipcode"
                       name="zipcode"
                       id="zipcode"
+                      required
                     />
+                    <span class="error-message"></span>
+
                   </div>
 
                   <div class="external-email-wrapper">
                     <div class="form-el-div">
                       <label for="title-select">Primary Email</label>
-                      <input class="large-h-formEl w-100" name="primary_email" id="primary_email" type="email" placeholder="" />
+                      <input class="large-h-formEl w-100" required id="primary_email" type="email" placeholder="" />
+                      <span class="error-message"></span>
                     </div>
 
                     <div class="form-el-div">
                       <label for="title-select">Secondary Email</label>
-                      <input class="large-h-formEl w-100" name="secondary_email" id ="secondary_email" type="email" placeholder="" />
+                      <input class="large-h-formEl w-100" required id ="secondary_email" type="email" placeholder="" />
+                      <span class="error-message"></span>
                     </div>
                   </div>
 
@@ -464,10 +480,12 @@
                     <input
                     class="w-100"
                     type="text"
-                    placeholder="Postcode/Zipcode"
+                    placeholder="State"
                     name="state"
                     id="state"
-                  />
+                    required
+                    />
+                    <span class="error-message"></span>
                   </div>
 
                   <div class="phone-container">
@@ -496,23 +514,31 @@
                         >Secondary Phone</label
                       >
                       <div class="row ms-0 gap-3 me-0">
-                        <select
-                          class="col-md-3"
-                          name=""
-                          id="secondary_phone"
-                        >
-                          <option value="">Country Code</option>
-                          <option value="South Korea">South Korea</option>
-                          <option value="India">India</option>
-                          <option value="Ghana">Ghana</option>
-                          <option value="Morocco">Morocco</option>
-                        </select>
-                        <input
-                          class="flex-grow-1 flex-shrink-1 flex-basis-0"
-                          type="text"
-                          placeholder="Mobile"
-                          name="secondary_phone"
-                        />
+                        <div class="col-md-3 p-0">
+                          <select
+                            class="w-100"
+                            name=""
+                            id="secondary_phone"
+                            required
+                          >
+                            <option value="">Country Code</option>
+                            <option value="South Korea">South Korea</option>
+                            <option value="India">India</option>
+                            <option value="Ghana">Ghana</option>
+                            <option value="Morocco">Morocco</option>
+                          </select>
+                          <span class="error-message"></span>
+                        </div>
+
+                        <div class="flex-grow-1 flex-shrink-1 flex-basis-0">
+                          <input
+                            class="w-100"
+                            type="text"
+                            placeholder="Mobile"
+                            required
+                          />
+                          <span class="error-message"></span>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -544,6 +570,7 @@
                       class="d-block w-100"
                       name="employment_status"
                       id="employment_status"
+                      required
                     >
                       <option value="">Select option</option>
                       <option value="South Korea">South Korea</option>
@@ -551,6 +578,8 @@
                       <option value="Ghana">Ghana</option>
                       <option value="Morocco">Morocco</option>
                     </select>
+                    <span class="error-message"></span>
+
                   </div>
 
                   <h4 class="primary-clr-text fs-3 text-center pl-font mt-5">
@@ -564,12 +593,13 @@
 
                     <div class="row mt-3 ms-0">
                       <div class="col-md-4 mt-3 mt-md-0">
-                        <div class="form-check d-flex align-items-center gap-2">
+                        <div class="form-check position-relative d-flex align-items-center gap-2">
                           <input
                             class="form-check-input"
                             type="checkbox"
                             value=""
                             id="flexCheckDefault1"
+                            required
                           />
                           <label
                             class="form-check-label mb-0 fw-medium fs-5"
@@ -577,16 +607,19 @@
                           >
                             Art & Design
                           </label>
+                          <span class="error-message check"></span>
+
                         </div>
 
                         <div
-                          class="form-check mt-3 d-flex align-items-center gap-2"
+                          class="form-check mt-3 position-relative d-flex align-items-center gap-2"
                         >
                           <input
                             class="form-check-input"
                             type="checkbox"
                             value=""
                             id="flexCheckDefault2"
+                            required
                           />
                           <label
                             class="form-check-label mb-0 fw-medium fs-5"
@@ -594,16 +627,18 @@
                           >
                             Dance
                           </label>
+                          <span class="error-message check"></span>
                         </div>
 
                         <div
-                          class="form-check mt-3 d-flex align-items-center gap-2"
+                          class="form-check mt-3 position-relative d-flex align-items-center gap-2"
                         >
                           <input
                             class="form-check-input"
                             type="checkbox"
                             value=""
                             id="flexCheckDefault3"
+                       
                           />
                           <label
                             class="form-check-label mb-0 fw-medium fs-5"
@@ -614,7 +649,7 @@
                         </div>
 
                         <div
-                          class="form-check mt-3 d-flex align-items-center gap-2"
+                          class="form-check mt-3 position-relative d-flex align-items-center gap-2"
                         >
                           <input
                             class="form-check-input"
@@ -631,7 +666,7 @@
                         </div>
 
                         <div
-                          class="form-check mt-3 d-flex align-items-center gap-2"
+                          class="form-check position-relative mt-3 d-flex align-items-center gap-2"
                         >
                           <input
                             class="form-check-input"
@@ -648,17 +683,17 @@
                         </div>
 
                         <div
-                          class="form-check mt-3 d-flex align-items-center gap-2"
+                          class="form-check mt-3 position-relative d-flex align-items-center gap-2"
                         >
                           <input
                             class="form-check-input"
                             type="checkbox"
                             value=""
-                            id="flexCheckDefault5"
+                            id="flexCheckDefault7"
                           />
                           <label
                             class="form-check-label mb-0 fw-medium fs-5"
-                            for="flexCheckDefault5"
+                            for="flexCheckDefault7"
                           >
                             Wellness & Beauty
                           </label>
@@ -856,11 +891,11 @@
                             class="form-check-input"
                             type="checkbox"
                             value=""
-                            id="flexCheckDefault35"
+                            id="flexCheckDefault36"
                           />
                           <label
                             class="form-check-label mb-0 fw-medium fs-5"
-                            for="flexCheckDefault35"
+                            for="flexCheckDefault36"
                           >
                             Yoga
                           </label>
@@ -871,7 +906,8 @@
 
                   <div class="form-el-div">
                     <label class = "ur" for="club-member">Are you a member of any other club?</label>
-                    <input type="text" class = "large-h-formEl w-100" name="member_of_club" id="member_of_club">
+                    <input type="text" required class = "large-h-formEl w-100" name="" id="member_of_club">
+                    <span class="error-message"></span>
                   </div>
 
                   <div class="form-el-div">
@@ -880,6 +916,7 @@
                     class="d-block w-100"
                     name="social_media_platform"
                     id="social_media_platform"
+                    required
                     >
                       <option value="">Select option</option>
                       <option value="South Korea">South Korea</option>
@@ -887,6 +924,8 @@
                       <option value="Ghana">Ghana</option>
                       <option value="Morocco">Morocco</option>
                     </select>
+                    <span class="error-message"></span>
+                    
                   </div>
 
                   <div class="form-check d-flex align-items-center gap-2 mt-3 ms-3">
@@ -894,11 +933,11 @@
                       class="form-check-input"
                       type="checkbox"
                       value=""
-                      id="flexCheckDefault1"
+                      id="flexCheckDefault-confirm"
                     />
                     <label
                       class="form-check-label mb-0  fs-6"
-                      for="flexCheckDefault1"
+                      for="flexCheckDefault-confirm"
                     >
                     By ticking this box, you are confirming that you are happy to receive marketing communications from us. 
                     You can choose to unsubscribe at any time by clicking unsubscribe in the footer of the email.
@@ -928,19 +967,21 @@
 
                 <div class="form-el-container mt-5">
 
-                  <div class = "border-bt-wrap">
+                  <div class="border-bt-wrap">
                     <div class="light-block-util">
-                      <h4 class = "pl-font primary-clr-text fs-3 font-medium mb-0">Upload Profile Picture</h4>
-                      <p class ="text-center">Please upload a clear photo of yourself.</p>
-                      <label class = "upload-util-el bg-primary-util mt-2" for="upload-pic">
-                        <input class= "upload-pic-input" type="file" name="profile_picture" id="profile_picture">
-                        <span class = "font-bold fs-5 text-white">Upload picture</span>
+                      <h4 class="pl-font primary-clr-text fs-3 font-medium mb-0">Upload Proof of ID</h4>
+                      <p class="text-center">Please upload a clear photo of your proof of ID e.g. Driving license or passport</p>
+                      <label class="upload-util-el bg-primary-util mt-2" for="upload-pic">
+                        <input class="upload-pic-input" type="file" id="upload-pic" accept="image/*">
+                        <span class="font-bold fs-5 text-white">Upload Files</span>
                         <span class="flex-center">
                           <img src="../static/img/svg/upload.svg" alt="upload icon">
                         </span>
                       </label>
+                      <p id="upload-message" class="text-center"></p> <!-- Success/Error Message -->
                     </div>
                   </div>
+
 
                   <div class="border-bt-wrap">
                     <div class="light-block-util mt-3">
@@ -953,17 +994,21 @@
                           <img src="../static/img/svg/upload.svg" alt="upload icon">
                         </span>
                       </label>
+                      <p id="upload-message" class="text-center"></p>
                     </div>
                   </div>
 
                   <div class="form-el-div">
                     <label for="club-member">Password</label>
-                    <input class = "w-100" type="text" name="password" id="password" placeholder = "Enter your password">
+                    <input class = "w-100" type="text" id="password" placeholder = "Enter your password" required>
+                    <span class="error-message"></span>
                   </div>
 
                   <div class="form-el-div">
                     <label for="club-member">Confirm Password</label>
-                    <input class = "w-100" type="text" name="password1" id="password1" placeholder = "Enter your password">
+                    <input class = "w-100" type="text" id="password1" placeholder = "Enter your password" required>
+                    <span class="error-message"></span>
+
                   </div>
 
                 </div>
@@ -1556,6 +1601,7 @@
       </footer>
     </div>
 
+    <!-- Script for steps in multistep form -->
     <script>
       let currentStep = 0;
       const steps = document.querySelectorAll(".step");
@@ -1587,15 +1633,19 @@
       }
 
       function validateField(input) {
-        console.log(input.parentElement.querySelector(".error-message"))
         const errorSpan = input.parentElement.querySelector(".error-message");
         let isValid = true;
-
         if (!input.value.trim()) {
           isValid = false;
           input.classList.add("error");
           errorSpan.textContent = "This field is required";
         } else {
+          input.classList.remove("error");
+          errorSpan.textContent = "";
+        }
+
+        if(input.checked == true){
+          isValid = true;
           input.classList.remove("error");
           errorSpan.textContent = "";
         }
@@ -1677,6 +1727,47 @@
 
       // Initialize step indicators and progress bar
       // showStep(currentStep);
+
+    </script>
+
+    <!-- Script for file upload -->
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const uploadInput = document.getElementById("upload-pic");
+        const messageEl = document.getElementById("upload-message");
+
+        uploadInput.addEventListener("change", function () {
+          const file = this.files[0];
+
+          if (!file) {
+            messageEl.textContent = "No file selected.";
+            messageEl.style.color = "red";
+            return;
+          }
+
+          // Validate file type
+          const allowedTypes = ["image/jpeg", "image/png", "image/gif"];
+          if (!allowedTypes.includes(file.type)) {
+            messageEl.textContent = "Invalid file type. Please upload an image (JPG, PNG, GIF).";
+            messageEl.style.color = "red";
+            this.value = ""; // Reset input
+            return;
+          }
+
+          // Validate file size (max 5MB)
+          const maxSize = 5 * 1024 * 1024; // 5MB
+          if (file.size > maxSize) {
+            messageEl.textContent = "File size too large. Maximum size is 5MB.";
+            messageEl.style.color = "red";
+            this.value = ""; // Reset input
+            return;
+          }
+
+          // If valid, show success message
+          messageEl.textContent = "File uploaded successfully!";
+          messageEl.style.color = "green";
+        });
+      });
 
     </script>
     

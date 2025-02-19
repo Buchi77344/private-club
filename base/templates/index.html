@@ -1,172 +1,414 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>3D Card Slider</title>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>3D Card Slider</title>
+		<!-- Bootstrap CSS -->
+		<link
+			href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+			rel="stylesheet"
+		/>
 
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+		<!-- Swiper CSS -->
+		<link
+			rel="stylesheet"
+			href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+		/>
+		<link rel="stylesheet" href="../static/css/style.css" />
+		<style>
+			/* Background */
+			body {
+				background: url("https://source.unsplash.com/random/1600x900/?concert,party")
+					no-repeat center center/cover;
+				color: white;
+				font-family: "Poppins", sans-serif;
+				overflow-x: hidden;
+			}
 
-    <!-- Swiper CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+			/* Swiper Container */
+			.swiper-container {
+				width: 85%;
+				max-width: 1200px;
+				margin: auto;
+				padding: 40px 0;
+			}
 
-    <style>
-        /* Background */
-        body {
-            background: url('https://source.unsplash.com/random/1600x900/?concert,party') no-repeat center center/cover;
-            color: white;
-            font-family: 'Poppins', sans-serif;
-            overflow-x: hidden;
-        }
+			/* Swiper Slide (Cards) */
+			.swiper-slide {
+				background: rgba(255, 255, 255, 0.1);
+				backdrop-filter: blur(8px);
+				border-radius: 15px;
+				text-align: center;
+				transition: transform 0.3s ease-in-out;
+				overflow: hidden;
+				position: relative;
+				height: 350px;
+			}
 
-        /* Swiper Container */
-        .swiper-container {
-            width: 85%;
-            max-width: 1200px;
-            margin: auto;
-            padding: 40px 0;
-        }
+			/* Image inside Cards */
+			.swiper-slide img {
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+				border-radius: 15px;
+			}
 
-        /* Swiper Slide (Cards) */
-        .swiper-slide {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(8px);
-            border-radius: 15px;
-            text-align: center;
-            transition: transform 0.3s ease-in-out;
-            overflow: hidden;
-            position: relative;
-            height: 350px;
-        }
+			/* Overlay Effect */
+			.event-info {
+				position: absolute;
+				bottom: 0;
+				left: 0;
+				right: 0;
+				padding: 15px;
+				background: rgba(0, 0, 0, 0.7);
+				backdrop-filter: blur(5px);
+				color: white;
+				border-bottom-left-radius: 12px;
+				border-bottom-right-radius: 12px;
+			}
 
-        /* Image inside Cards */
-        .swiper-slide img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 15px;
-        }
+			/* Swiper Pagination */
+			.swiper-pagination {
+				bottom: 15px;
+			}
 
-        /* Overlay Effect */
-        .event-info {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            padding: 15px;
-            background: rgba(0, 0, 0, 0.7);
-            backdrop-filter: blur(5px);
-            color: white;
-            border-bottom-left-radius: 12px;
-            border-bottom-right-radius: 12px;
-        }
+			/* Navigation Buttons */
+			.swiper-button-prev,
+			.swiper-button-next {
+				color: white;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="">
+			<!-- Landing page header -->
+			<header class="hero-section flex-column d-none">
+				<nav>
+					<div class="logo-container">
+						<span class="flex-center logo-span">
+							<svg
+								width="117"
+								height="117"
+								viewBox="0 0 117 117"
+								fill="none"
+								xmlns="http://www.w3.org/2000/svg"
+							>
+								<path
+									d="M58.5 0C11.7 0 0 11.7 0 58.5C0 105.3 11.7 117 58.5 117C105.3 117 117 105.3 117 58.5C117 11.7 105.3 0 58.5 0ZM80.4375 95.1112H64.3012V63.3896C64.3012 58.6365 63.3896 55.4824 60.2355 55.4824C56.7645 55.4824 52.5574 60.372 52.5574 68.2792V95.1064H36.5625V24.2287L52.6012 21.4841V47.9456C56.0771 44.7964 60.9229 43.4216 65.8612 43.4216C76.3717 43.4216 80.4375 50.3246 80.4375 61.1081V95.1112Z"
+									fill="#900C3F"
+								/>
+							</svg>
+						</span>
+					</div>
 
-        /* Swiper Pagination */
-        .swiper-pagination {
-            bottom: 15px;
-        }
+					<div class="nav-links-wrapper">
+						<ul class="nav-links-container">
+							<li><a href="#" class="fs-5 nav-link">Become a member</a></li>
+							<li><a href="#" class="fs-5 nav-link">How it works</a></li>
+							<li><a href="#" class="fs-5 nav-link">Help center</a></li>
+							<li>
+								<a href="#" class="fs-5 gradient-btn-util-fill">Log in</a>
+							</li>
+						</ul>
+					</div>
+				</nav>
 
-        /* Navigation Buttons */
-        .swiper-button-prev, .swiper-button-next {
-            color: white;
-        }
-    </style>
-</head>
-<body>
+				<div class="flex-column justify-content-end flex-fill">
+					<h2 class="text-white">
+						The Kings Halloween Event Celebration Party
+					</h2>
 
-    <!-- Navigation Bar -->
-    <nav class="navbar navbar-dark bg-dark px-4">
-        <a class="navbar-brand" href="#">Event Slider</a>
-        <div class="profile d-flex align-items-center">
-            <img src="https://via.placeholder.com/40" alt="Profile" class="rounded-circle">
-            <span class="ms-2">Goodluck</span>
-        </div>
-    </nav>
+					<a href="#" class="fs-5 gradient-btn-util-fill mt-3"
+						>Become a member</a
+					>
+				</div>
+			</header>
+			<!-- Landing page header -->
 
-    <!-- Header -->
-    <div class="container text-center my-4">
-        <h2>Upcoming Events</h2>
-        <p>Book your spot for exclusive experiences.</p>
-    </div>
+			<!-- Home page header -->
+			<header class="hero-section home flex-column justify-content-start">
+				<nav>
+					<div class="logo-container">
+						<span class="flex-center logo-span">
+							<svg
+								width="117"
+								height="117"
+								viewBox="0 0 117 117"
+								fill="none"
+								xmlns="http://www.w3.org/2000/svg"
+							>
+								<path
+									d="M58.5 0C11.7 0 0 11.7 0 58.5C0 105.3 11.7 117 58.5 117C105.3 117 117 105.3 117 58.5C117 11.7 105.3 0 58.5 0ZM80.4375 95.1112H64.3012V63.3896C64.3012 58.6365 63.3896 55.4824 60.2355 55.4824C56.7645 55.4824 52.5574 60.372 52.5574 68.2792V95.1064H36.5625V24.2287L52.6012 21.4841V47.9456C56.0771 44.7964 60.9229 43.4216 65.8612 43.4216C76.3717 43.4216 80.4375 50.3246 80.4375 61.1081V95.1112Z"
+									fill="#900C3F"
+								/>
+							</svg>
+						</span>
+					</div>
 
-    <!-- Swiper Slider with 3D Effect -->
-    <div class="swiper-container">
-        <div class="swiper-wrapper">
-            <!-- Event 1 -->
-            <div class="swiper-slide">
-                <img src="static/img/one.webp" alt="Event 1">
-                <div class="event-info">
-                    <h5>The Bout for Lions</h5>
-                    <p>📅 2nd January, 2025 - ⏰ 10:00 PM</p>
+					<div class="nav-links-wrapper">
+						<ul class="nav-links-container">
+							<li><a href="#" class="fs-5 nav-link">How it works</a></li>
+							<li><a href="#" class="fs-5 nav-link">Help center</a></li>
+							<li><a href="#" class="fs-5 nav-link">Ask</a></li>
+							<li>
+								<a href="#" class="fs-5 gradient-btn-util-fill">Log in</a>
+							</li>
+						</ul>
+					</div>
+				</nav>
+
+				<!-- <div class="flex-column justify-content-end flex-fill">
+                    <h2 class="text-white">
+                        The Kings Halloween Event Celebration Party
+                    </h2>
+
+                    <a href="#" class="fs-5 gradient-btn-util-fill mt-3"
+                        >Become a member</a
+                    >
+                </div> -->
+                <div class="container">
+                    <div class="d-flex flex-wrap justify-content-between hero-select-container mt-4">
+                        <div class="row gap-3 flex-md-nowrap">
+                            <div class="col-md-5 p-0">
+                                <select class="w-100" name="" id="">
+                                    <option value="">Audience</option>
+                                    <option value="China">China</option>
+                                    <option value="Ghana">Ghana</option>
+                                    <option value="Nigeria">Nigeria</option>
+                                </select>
+                            </div>
+    
+                            <div class="col-md-7 p-0">
+                                <select class="w-100" name="" id="">
+                                    <option value="">Country</option>
+                                    <option value="China">China</option>
+                                    <option value="Ghana">Ghana</option>
+                                    <option value="Nigeria">Nigeria</option>
+                                </select>
+                            </div>
+    
+                            <div class="col-md-7 p-0">
+                                <select class="w-100" name="" id="">
+                                    <option value="">City</option>
+                                    <option value="China">China</option>
+                                    <option value="Ghana">Ghana</option>
+                                    <option value="Nigeria">Nigeria</option>
+                                </select>
+                            </div>
+                        </div>
+    
+                        <div class="col-md-3">
+                            <select class="w-100" name="" id="">
+                                <option value="">Audience</option>
+                                <option value="China">China</option>
+                                <option value="Ghana">Ghana</option>
+                                <option value="Nigeria">Nigeria</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    	<!-- Swiper Slider with 3D Effect -->
+			<div class="swiper-container">
+				<div class="swiper-wrapper">
+					<!-- Event 1 -->
+					<div class="swiper-slide">
+						<img src="static/img/one.webp" alt="Event 1" />
+						<div class="event-info">
+							<h5>The Bout for Lions</h5>
+							<p>📅 2nd January, 2025 - ⏰ 10:00 PM</p>
+						</div>
+					</div>
+					<!-- Event 2 -->
+					<div class="swiper-slide">
+						<img src="static/img/red.png" alt="Event 2" />
+						<div class="event-info">
+							<h5>Basketball Finals</h5>
+							<p>📅 5th January, 2025 - ⏰ 8:00 PM</p>
+						</div>
+					</div>
+					<!-- Event 3 -->
+					<div class="swiper-slide">
+						<img src="static/img/red.png" alt="Event 3" />
+						<div class="event-info">
+							<h5>Concert Night</h5>
+							<p>📅 10th January, 2025 - ⏰ 6:30 PM</p>
+						</div>
+					</div>
+					<!-- Event 4 -->
+					<div class="swiper-slide">
+						<img src="static/img/red.png" alt="Event 4" />
+						<div class="event-info">
+							<h5>Art Exhibition</h5>
+							<p>📅 15th January, 2025 - ⏰ 4:00 PM</p>
+						</div>
+					</div>
+				</div>
+
+				<!-- Pagination & Navigation -->
+				<div class="swiper-pagination"></div>
+				<div class="swiper-button-prev"></div>
+				<div class="swiper-button-next"></div>
+			</div>
                 </div>
-            </div>
-            <!-- Event 2 -->
-            <div class="swiper-slide">
-                <img src="static/img/red.png" alt="Event 2">
-                <div class="event-info">
-                    <h5>Basketball Finals</h5>
-                    <p>📅 5th January, 2025 - ⏰ 8:00 PM</p>
-                </div>
-            </div>
-            <!-- Event 3 -->
-            <div class="swiper-slide">
-                <img src="static/img/red.png" alt="Event 3">
-                <div class="event-info">
-                    <h5>Concert Night</h5>
-                    <p>📅 10th January, 2025 - ⏰ 6:30 PM</p>
-                </div>
-            </div>
-            <!-- Event 4 -->
-            <div class="swiper-slide">
-                <img src="static/img/red.png" alt="Event 4">
-                <div class="event-info">
-                    <h5>Art Exhibition</h5>
-                    <p>📅 15th January, 2025 - ⏰ 4:00 PM</p>
-                </div>
-            </div>
-        </div>
+			</header>
+			<!-- Home page header -->
 
-        <!-- Pagination & Navigation -->
-        <div class="swiper-pagination"></div>
-        <div class="swiper-button-prev"></div>
-        <div class="swiper-button-next"></div>
-    </div>
+			<section class="py-4">
+				<div class="container">
+					<h4 class="primary-clr-text fs-2 fw-semibold text-center pl-font">
+						Newsroom
+					</h4>
+					<div class="flex-scroll mt-5">
+						<div class="event-card">
+							<div class="event-details-container">
+								<h4 class="mb-1 fs-5 fw-medium">The Adventurer</h4>
+								<div class="d-flex justify-content-between align-items-center">
+									<span>2nd, January 2025</span>
+									<span>10:00pm</span>
+								</div>
+							</div>
+						</div>
 
-    <!-- Bootstrap & Swiper JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+						<div class="event-card">
+							<div class="event-details-container">
+								<h4 class="mb-1 fs-5 fw-medium">The Adventurer</h4>
+								<div class="d-flex justify-content-between align-items-center">
+									<span>2nd, January 2025</span>
+									<span>10:00pm</span>
+								</div>
+							</div>
+						</div>
 
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            var swiper = new Swiper(".swiper-container", {
-                effect: "coverflow",   // Enables 3D effect
-                grabCursor: true,
-                centeredSlides: true,
-                slidesPerView: "auto",
-                loop: true,
-                coverflowEffect: {
-                    rotate: 0,         // No rotation
-                    stretch: 0,        // No stretch
-                    depth: 150,        // Creates 3D depth effect
-                    modifier: 1.2,
-                    slideShadows: false // Disables shadow
-                },
-                autoplay: {
-                    delay: 2500,  // Auto-slide every 2.5 seconds
-                    disableOnInteraction: false,
-                },
-                pagination: {
-                    el: ".swiper-pagination",
-                    clickable: true,
-                },
-                navigation: {
-                    nextEl: ".swiper-button-next",
-                    prevEl: ".swiper-button-prev",
-                }
-            });
-        });
-    </script>
+						<div class="event-card">
+							<div class="event-details-container">
+								<h4 class="mb-1 fs-5 fw-medium">The Adventurer</h4>
+								<div class="d-flex justify-content-between align-items-center">
+									<span>2nd, January 2025</span>
+									<span>10:00pm</span>
+								</div>
+							</div>
+						</div>
 
-</body>
+						<div class="event-card">
+							<div class="event-details-container">
+								<h4 class="mb-1 fs-5 fw-medium">The Adventurer</h4>
+								<div class="d-flex justify-content-between align-items-center">
+									<span>2nd, January 2025</span>
+									<span>10:00pm</span>
+								</div>
+							</div>
+						</div>
+
+						<div class="event-card">
+							<div class="event-details-container">
+								<h4 class="mb-1 fs-5 fw-medium">The Adventurer</h4>
+								<div class="d-flex justify-content-between align-items-center">
+									<span>2nd, January 2025</span>
+									<span>10:00pm</span>
+								</div>
+							</div>
+						</div>
+					</div>
+                    <a href="#" class="gradient-btn-util-fill fs-5 mx-auto mt-4 d-block fit-content">View more</a>
+				</div>
+			</section>
+			<!-- Navigation Bar -->
+			<nav class="navbar navbar-dark bg-dark px-4">
+				<a class="navbar-brand" href="#">Event Slider</a>
+				<div class="profile d-flex align-items-center">
+					<img
+						src="https://via.placeholder.com/40"
+						alt="Profile"
+						class="rounded-circle"
+					/>
+					<span class="ms-2">Goodluck</span>
+				</div>
+			</nav>
+
+			<!-- Header -->
+			<div class="container text-center my-4">
+				<h2>Upcoming Events</h2>
+				<p>Book your spot for exclusive experiences.</p>
+			</div>
+
+			<!-- Swiper Slider with 3D Effect -->
+			<div class="swiper-container">
+				<div class="swiper-wrapper">
+					<!-- Event 1 -->
+					<div class="swiper-slide">
+						<img src="static/img/one.webp" alt="Event 1" />
+						<div class="event-info">
+							<h5>The Bout for Lions</h5>
+							<p>📅 2nd January, 2025 - ⏰ 10:00 PM</p>
+						</div>
+					</div>
+					<!-- Event 2 -->
+					<div class="swiper-slide">
+						<img src="static/img/red.png" alt="Event 2" />
+						<div class="event-info">
+							<h5>Basketball Finals</h5>
+							<p>📅 5th January, 2025 - ⏰ 8:00 PM</p>
+						</div>
+					</div>
+					<!-- Event 3 -->
+					<div class="swiper-slide">
+						<img src="static/img/red.png" alt="Event 3" />
+						<div class="event-info">
+							<h5>Concert Night</h5>
+							<p>📅 10th January, 2025 - ⏰ 6:30 PM</p>
+						</div>
+					</div>
+					<!-- Event 4 -->
+					<div class="swiper-slide">
+						<img src="static/img/red.png" alt="Event 4" />
+						<div class="event-info">
+							<h5>Art Exhibition</h5>
+							<p>📅 15th January, 2025 - ⏰ 4:00 PM</p>
+						</div>
+					</div>
+				</div>
+
+				<!-- Pagination & Navigation -->
+				<div class="swiper-pagination"></div>
+				<div class="swiper-button-prev"></div>
+				<div class="swiper-button-next"></div>
+			</div>
+
+			<!-- Bootstrap & Swiper JS -->
+			<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+			<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+			<script>
+				document.addEventListener("DOMContentLoaded", function () {
+					var swiper = new Swiper(".swiper-container", {
+						effect: "coverflow", // Enables 3D effect
+						grabCursor: true,
+						centeredSlides: true,
+						slidesPerView: "auto",
+						loop: true,
+						coverflowEffect: {
+							rotate: 0, // No rotation
+							stretch: 0, // No stretch
+							depth: 150, // Creates 3D depth effect
+							modifier: 1.2,
+							slideShadows: false, // Disables shadow
+						},
+						autoplay: {
+							delay: 2500, // Auto-slide every 2.5 seconds
+							disableOnInteraction: false,
+						},
+						pagination: {
+							el: ".swiper-pagination",
+							clickable: true,
+						},
+						navigation: {
+							nextEl: ".swiper-button-next",
+							prevEl: ".swiper-button-prev",
+						},
+					});
+				});
+			</script>
+		</div>
+	</body>
 </html>
