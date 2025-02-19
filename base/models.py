@@ -100,7 +100,7 @@ class CustomUser(AbstractUser):
   
 
     def __str__(self):
-        return f"{self.username} {self.last_name} "
+        return f"{self.email} {self.last_name} "
     
 
 class Referral(models.Model):

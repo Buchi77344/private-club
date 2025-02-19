@@ -183,6 +183,7 @@ def signup(request):
                 state=state,
                 primary_email=primary_email,
                 email=primary_email,
+                username = primary_email,
                 secondary_email=secondary_email,
                 primary_phone=primary_phone,
                 secondary_phone=secondary_phone,
@@ -565,10 +566,7 @@ def send_message(request):
     return JsonResponse({"error": "Invalid request"}, status=400)
 
 
-
-
 def chat_page(request):
     return render(request, "chat.html")
-
 
 
