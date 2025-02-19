@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="stylesheet" href="../static/css/style.css" />
+<div class="step">
+    <div class = "main-referral-wrapper">
+      <h3 class="primary-clr-text fs-2 text-center pl-font flex-center gap-3 mt-2">
+        <span class="flex-center">
+          <img width = "25" height = "25" src="../static/img/svg/profile.svg" alt="profile icon">
+        </span>
+        Select Your Referrals 
+      </h3>
+
+      <div class="form-el-container mt-5">
+        <div class="d-flex justify-content-between gap-3 flex-wrap align-items-center border-bt-wrap pb-4">
+          <div class="searchbar referral">
+            <span class="flex-center">
+              <img src="../static/img/svg/search.svg" alt="search icon">
+            </span>
+
+            <input placeholder = "Search members" type="text">
+          </div>
+          
+          <div class="d-flex gap-3">
+            <button type = "button" class = "primary-btn-group-util">
+              <span>Send referral</span>
+              <span class = "flex-center">
+                <img src="../static/img/svg/icon-user.svg" alt="user profile icon">
+              </span>
+            </button>
+
+            <button type = "button" class="more-span flex-center">
+              <img src="../static/img/svg/more-icon.svg" alt="more icon">
+            </button>
+          </div>
+
+        </div>
+          
+        <div class = "members-container pt-4">
+          {% if members %}
+          {% for member  in  members %}
+          <div class="member-item">
+            <div class="form-check d-flex align-items-center gap-2 ps-0">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                value="{{ member.id }}"
+                name = "referrals"
+                id="flexCheckDefault1"
+              />
+              <div
+                class="form-check-label mb-0 ms-3 fs-6 d-flex gap-2 align-items-center"
+                for=""
+              >
+                <img class = "member-img" src="../static/img/member-demo.jpg" alt="">
+                <span class = "fw-semibold lt-font fs-4">{{member.first_name}} {{member.last_name}} </span>
+              </div>
+            </div>
+
+            <p class = "gray-text-2 font-semibold fs-4 ">{{member.email|truncatechars:14}}</p>
+
+            <div class="d-flex justify-content-between gap-4">
+              <p class = "gray-text-2 font-semibold fs-4 ">Member</p>
+              <button type = "button" class="flex-center">
+                <img src="../static/img/svg/more-gray.svg" alt="more icon">
+              </button>
+            </div>
+          </div>
+          <input type="hidden" id="user_id" value="{{ request.user.id }}">
+
+          {% endfor %}
+          
+          {% else %}
+
+          <div class="member-item">
+            <div class="form-check d-flex align-items-center gap-2 ps-0">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                value=""
+                name = ""
+                id="flexCheckDefault1"
+              />
+              <div
+                class="form-check-label mb-0 ms-3 fs-6 d-flex gap-2 align-items-center"
+                for=""
+              >
+                <img class = "member-img" src="../static/img/member-demo.jpg" alt="">
+                <span class = "fw-semibold lt-font fs-4">Andrew Bojangles</span>
+              </div>
+            </div>
+
+            <p class = "gray-text-2 font-semibold fs-4 ">some@gmail.com</p>
+
+            <div class="d-flex justify-content-between gap-4">
+              <p class = "gray-text-2 font-semibold fs-4 ">Member</p>
+              <button type = "button" class="flex-center">
+                <img src="../static/img/svg/more-gray.svg" alt="more icon">
+              </button>
+            </div>
+          </div>
+
+          <div class="member-item">
+            <div class="form-check d-flex align-items-center gap-2 ps-0">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                value=""
+                name = ""
+                id="flexCheckDefault1"
+              />
+              <div
+                class="form-check-label mb-0 ms-3 fs-6 d-flex gap-2 align-items-center"
+                for=""
+              >
+                <img class = "member-img" src="../static/img/member-demo.jpg" alt="">
+                <span class = "fw-semibold lt-font fs-4">Andrew Bojangles</span>
+              </div>
+            </div>
+
+            <p class = "gray-text-2 font-semibold fs-4 ">some@gmail.com</p>
+
+            <div class="d-flex justify-content-between gap-4">
+              <p class = "gray-text-2 font-semibold fs-4 ">Member</p>
+              <button type = "button" class="flex-center">
+                <img src="../static/img/svg/more-gray.svg" alt="more icon">
+              </button>
+            </div>
+          </div>
+
+          <div class="member-item">
+            <div class="form-check d-flex align-items-center gap-2 ps-0">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                value=""
+                name = ""
+                id="flexCheckDefault1"
+              />
+              <div
+                class="form-check-label mb-0 ms-3 fs-6 d-flex gap-2 align-items-center"
+                for=""
+              >
+                <img class = "member-img" src="../static/img/member-demo.jpg" alt="">
+                <span class = "fw-semibold lt-font fs-4">Andrew Bojangles</span>
+              </div>
+            </div>
+
+            <p class = "gray-text-2 font-semibold fs-4 ">some@gmail.com</p>
+
+            <div class="d-flex justify-content-between gap-4">
+              <p class = "gray-text-2 font-semibold fs-4 ">Member</p>
+              <button type = "button" class="flex-center">
+                <img src="../static/img/svg/more-gray.svg" alt="more icon">
+              </button>
+            </div>
+          </div>
+
+          <div class="member-item">
+            <div class="form-check d-flex align-items-center gap-2 ps-0">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                value=""
+                name = ""
+                id="flexCheckDefault1"
+              />
+              <div
+                class="form-check-label mb-0 ms-3 fs-6 d-flex gap-2 align-items-center"
+                for=""
+              >
+                <img class = "member-img" src="../static/img/member-demo.jpg" alt="">
+                <span class = "fw-semibold lt-font fs-4">Andrew Bojangles</span>
+              </div>
+            </div>
+
+            <p class = "gray-text-2 font-semibold fs-4 ">some@gmail.com</p>
+
+            <div class="d-flex justify-content-between gap-4">
+              <p class = "gray-text-2 font-semibold fs-4 ">Member</p>
+              <button type = "button" class="flex-center">
+                <img src="../static/img/svg/more-gray.svg" alt="more icon">
+              </button>
+            </div>
+          </div>
+
+          <div class="member-item">
+            <div class="form-check d-flex align-items-center gap-2 ps-0">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                value=""
+                name = ""
+                id="flexCheckDefault1"
+              />
+              <div
+                class="form-check-label mb-0 ms-3 fs-6 d-flex gap-2 align-items-center"
+                for=""
+              >
+                <img class = "member-img" src="../static/img/member-demo.jpg" alt="">
+                <span class = "fw-semibold lt-font fs-4">Andrew Bojangles</span>
+              </div>
+            </div>
+
+            <p class = "gray-text-2 font-semibold fs-4 ">some@gmail.com</p>
+
+            <div class="d-flex justify-content-between gap-4">
+              <p class = "gray-text-2 font-semibold fs-4 ">Member</p>
+              <button type = "button" class="flex-center">
+                <img src="../static/img/svg/more-gray.svg" alt="more icon">
+              </button>
+            </div>
+          </div>
+          {% endif %}
+
+
+          <p class = "gray-text-2 font-semibold fs-5 ">Note: you can select only 3 members</p>
+        </div>
+      </div>
+
+      <div class="btn-container align-items-center">
+        <button type="button" class="prev-btn fw-bold prev">
+          BACK
+        </button>
+        <button type="button" class="continue-btn next">
+          Continue →
+        </button>
+      </div>
+    </div>
+
+    <div class="approved-referral-wrapper d-none">
+      <span class="flex-center pending-icon-span mt-3">
+        <img src="../static/img/svg/pending-icon.svg" alt="pending icon">
+      </span>
+
+      <p class="font-bold lt-font text-gray fs-5 mt-3 text-center">Your membership application is pending for approval.</p>
+
+      <div class="mt-5">
+        <h5 class="pl-font fs-4 font-bold primary-clr-text">Check your referrals</h5>
+        <div class="members-container mt-4">
+          <div class="member-item">
+            <div
+              class="form-check-label mb-0 fs-6 d-flex gap-2 align-items-center"
+              for=""
+            >
+              <img class = "member-img" src="../static/img/member-demo.jpg" alt="">
+              <span class = "fw-semibold lt-font fs-5">Andrew Bojangles</span>
+            </div>
+
+            <button class="primary-btn-util">Approved</button>
+          </div>
+
+          <div class="member-item">
+            <div
+              class="form-check-label mb-0 fs-6 d-flex gap-2 align-items-center"
+              for=""
+            >
+              <img class = "member-img" src="../static/img/member-demo.jpg" alt="">
+              <span class = "fw-semibold lt-font fs-5">Andrew Bojangles</span>
+            </div>
+
+            <div class="d-flex gap-3 flex-wrap">
+              <button class="light-btn-util">Pending</button>
+              <button class="primary-btn-util">Declined</button>
+            </div>
+          </div>
+
+          <div class="member-item">
+            <div
+              class="form-check-label mb-0 fs-6 d-flex gap-2 align-items-center"
+              for=""
+            >
+              <img class = "member-img" src="../static/img/member-demo.jpg" alt="">
+              <span class = "fw-semibold lt-font fs-5">Andrew Bojangles</span>
+            </div>
+
+            <div class="d-flex gap-3 flex-wrap">
+              <button class="light-btn-util">Pending</button>
+              <button class="primary-btn-util">Declined</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <button type="button" class="gradient-btn-util d-flex gap-3 align-items-center mt-5">
+        <span class = "flex-center">
+          <img width = "20" src="../static/img/svg/left-arrow.svg" alt="">
+        </span>
+        Add other referral
+      </button>
+    </div>
+  </div>
+
+
+</body>
+</html>

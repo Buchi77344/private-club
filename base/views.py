@@ -76,18 +76,18 @@ CustomUser = get_user_model()
 
 
 
-def signup(request):  
+# def signup(request):  
      
 
-    return render(request, 'signup.html', {
-        'title_choices': TITLE_CHOICES,
-        'gender_choices': GENDER_CHOICES,
-        'relationship_status_choices': RELATIONSHIP_STATUS_CHOICES,
-        'countries': countries,
-        'employment_status_choices': EMPLOYMENT_STATUS_CHOICES,
-        'interest_choices': INTEREST_CHOICES,
-        'members': CustomUser.objects.filter(is_memeber=True),   
-    })
+#     return render(request, 'signup.html', {
+#         'title_choices': TITLE_CHOICES,
+#         'gender_choices': GENDER_CHOICES,
+#         'relationship_status_choices': RELATIONSHIP_STATUS_CHOICES,
+#         'countries': countries,
+#         'employment_status_choices': EMPLOYMENT_STATUS_CHOICES,
+#         'interest_choices': INTEREST_CHOICES,
+#         'members': CustomUser.objects.filter(is_memeber=True),   
+#     })
 
 
 from django.http import JsonResponse
@@ -102,90 +102,75 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.db.utils import IntegrityError
 from .models import CustomUser
 
-# Setup logging
+
+
 logger = logging.getLogger(__name__)
 
-@csrf_exempt
-def signupx(request):
-    if request.method == "POST":
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from django.core.files.storage import default_storage
+from django.contrib.auth.models import User
+
+
+def signup(request):
+    if request.method == 'POST':
         try:
-            # Decode request body safely
-            data = json.loads(request.body.decode('utf-8'))
-        except json.JSONDecodeError as e:
-            logger.error(f"JSON Decode Error: {str(e)}")
-            return JsonResponse({'success': False, 'error': 'Invalid JSON format'}, status=400)
+            # Extract data from POST request
+            title = request.POST.get('title')
+            first_name = request.POST.get('first_name')
+            last_name = request.POST.get('last_name')
+            gender = request.POST.get('gender')
+            date_of_birth = request.POST.get('date_of_birth')
+            nationality = request.POST.get('nationality')
+            additional_nationality = request.POST.get('additional_nationality')
+            relationship_status = request.POST.get('relationship_status')
+            address_line = request.POST.get('address_line')
+            town_city = request.POST.get('town_city')
+            country = request.POST.get('country')
+            zipcode = request.POST.get('zipcode')
+            state = request.POST.get('state')
+            primary_email = request.POST.get('primary_email')
+            secondary_email = request.POST.get('secondary_email')
+            primary_phone = request.POST.get('primary_phone')
+            secondary_phone = request.POST.get('secondary_phone')
+            employment_status = request.POST.get('employment_status')
+            member_of_club = request.POST.get('member_of_club')
+            social_media_platform = request.POST.get('social_media_platform')
+            password = request.POST.get('password')
+            password1 = request.POST.get('password1')
 
-        try:
-            # Extracting user details
-            title = data.get('title')
-            first_name = data.get('first_name')
-            last_name = data.get('last_name')
-            gender = data.get('gender')
-            date_of_birth = data.get('date_of_birth')
-            nationality = data.get('nationality')
-            additional_nationality = data.get('additional_nationality')
-            relationship_status = data.get('relationship_status')
-            address_line = data.get('address_line')
-            town_city = data.get('town_city')
-            country = data.get('country')
-            zipcode = data.get('zipcode')
-            state = data.get('state')
-            primary_email = data.get('primary_email', '').strip().lower()
-            secondary_email = data.get('secondary_email')
-            primary_phone = data.get('primary_phone')
-            secondary_phone = data.get('secondary_phone')
-            employment_status = data.get('employment_status')
-            interests = data.get('interests', [])
-            member_of_club = data.get('member_of_club')
-            social_media_platform = data.get('social_media_platform')
-            password = data.get('password')
-            password1 = data.get('password1')
+            # Check for missing fields
+            required_fields = [
+                title, first_name, last_name, gender, date_of_birth, nationality, 
+                additional_nationality, relationship_status, address_line, town_city, 
+                country, zipcode, state, primary_email, secondary_email, primary_phone, 
+                secondary_phone, employment_status, member_of_club, social_media_platform, 
+                password, password1
+            ]
+            
+            missing_fields = [field for field in required_fields if not field]
+            missing_fields = [str(field) for field in missing_fields if field]  # Ensure it's a string
 
-            errors = {}
+            if missing_fields:
+                return JsonResponse({"success": False, "errors": f"Missing fields: {', '.join(missing_fields)}"}, status=400)
 
-            required_fields = {
-                'title': title, 'first_name': first_name, 'last_name': last_name, 'gender': gender, 
-                'date_of_birth': date_of_birth, 'nationality': nationality, 'relationship_status': relationship_status, 
-                'address_line': address_line, 'town_city': town_city, 'state':state, 'country': country, 'zipcode': zipcode, 
-                'primary_email': primary_email, 'employment_status': employment_status, 
-                'member_of_club': member_of_club, 'social_media_platform': social_media_platform, 
-                'password': password, 'password1': password1
-            }
-
-            # Check required fields
-            for field, value in required_fields.items():
-                if not value:
-                    errors[field] = f"{field.replace('_', ' ').capitalize()} is required."
-
-            # Check for duplicate email
-            if CustomUser.objects.filter(email=primary_email).exists():
-                errors['primary_email'] = "An account with this email already exists."
-
-            # Password validation
+            # Validate password
             if password != password1:
-                errors['password1'] = "Passwords do not match."
+                return JsonResponse({"success": False, "errors": "Passwords do not match."}, status=400)
 
-            if len(password) < 8:
-                errors['password'] = "Password must be at least 8 characters long."
+            # Handle file uploads
+            profile_picture = request.FILES.get('profile_picture')
+            id_proof = request.FILES.get('id_proof')
 
-            if not any(char.isdigit() for char in password):
-                errors['password'] = "Password must contain at least one number."
+            # Save files if provided
+            profile_picture_path = default_storage.save(profile_picture.name, profile_picture) if profile_picture else None
+            id_proof_path = default_storage.save(id_proof.name, id_proof) if id_proof else None
 
-            if not any(char.isalpha() for char in password):
-                errors['password'] = "Password must contain at least one letter."
-
-            # Return errors if found
-            if errors:
-                return JsonResponse({'success': False, 'errors': errors}, status=400)
-
-            # Create the user
-            user = CustomUser(
-                username=primary_email,
-                email=primary_email,
-                primary_email= primary_email,
+            # Create user
+            user = CustomUser.objects.create(
+                title=title,
                 first_name=first_name,
                 last_name=last_name,
-                title=title,
                 gender=gender,
                 date_of_birth=date_of_birth,
                 nationality=nationality,
@@ -195,29 +180,43 @@ def signupx(request):
                 town_city=town_city,
                 country=country,
                 zipcode=zipcode,
+                state=state,
+                primary_email=primary_email,
+                email=primary_email,
+                secondary_email=secondary_email,
                 primary_phone=primary_phone,
                 secondary_phone=secondary_phone,
                 employment_status=employment_status,
                 member_of_club=member_of_club,
                 social_media_platform=social_media_platform,
-                state=state,
-                secondary_email=secondary_email
+                profile_picture=profile_picture_path,
+                proof_of_id=id_proof_path
             )
-
-            user.set_password(password)
+            user.set_password(password)  # Hash the password before saving
             user.save()
 
-            return JsonResponse({'success': True, 'message': "Registration successful! Please wait for approval from your referrals."}, status=201)
 
-        except IntegrityError as e:
-            logger.error(f"Database Integrity Error: {str(e)}")
-            return JsonResponse({'success': False, 'error': 'A database error occurred. Please try again.'}, status=500)
+            return redirect("login")
 
         except Exception as e:
-            logger.error(f"Unexpected Error: {str(e)}")
-            return JsonResponse({'success': False, 'error': 'An unexpected error occurred. Please contact support.'}, status=500)
+            return JsonResponse({"success": False, "errors": str(e)}, status=500)
 
-    return JsonResponse({'error': 'Invalid request method'}, status=405)
+    return render(request, 'signup.html', {
+        'title_choices': TITLE_CHOICES,
+        'gender_choices': GENDER_CHOICES,
+        'relationship_status_choices': RELATIONSHIP_STATUS_CHOICES,
+        'countries': countries,
+        'employment_status_choices': EMPLOYMENT_STATUS_CHOICES,
+        'interest_choices': INTEREST_CHOICES,
+        'members': CustomUser.objects.filter(is_memeber=True),   
+    })
+
+
+def member(request):
+    context = {
+        'members': CustomUser.objects.filter(is_memeber=True), 
+    }
+    return render (request ,'member.html', context)
 
 
 from django.http import JsonResponse
@@ -570,3 +569,6 @@ def send_message(request):
 
 def chat_page(request):
     return render(request, "chat.html")
+
+
+
