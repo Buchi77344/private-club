@@ -82,9 +82,8 @@
 	</head>
 	<body>
 		<div class="">
-
-            <!-- Home page header -->
-			<header class="hero-section flex-column">
+			<!-- Landing page header -->
+			<header class="hero-section flex-column d-none">
 				<nav>
 					<div class="logo-container">
 						<span class="flex-center logo-span">
@@ -125,41 +124,41 @@
 					>
 				</div>
 			</header>
-            <!-- Home page header -->
+			<!-- Landing page header -->
 
-            <!-- Home page header -->
-            <header class="hero-section flex-column">
-                <nav>
-                    <div class="logo-container">
-                        <span class="flex-center logo-span">
-                            <svg
-                                width="117"
-                                height="117"
-                                viewBox="0 0 117 117"
-                                fill="none"
-                                xmlns="http://www.w3.org/2000/svg"
-                            >
-                                <path
-                                    d="M58.5 0C11.7 0 0 11.7 0 58.5C0 105.3 11.7 117 58.5 117C105.3 117 117 105.3 117 58.5C117 11.7 105.3 0 58.5 0ZM80.4375 95.1112H64.3012V63.3896C64.3012 58.6365 63.3896 55.4824 60.2355 55.4824C56.7645 55.4824 52.5574 60.372 52.5574 68.2792V95.1064H36.5625V24.2287L52.6012 21.4841V47.9456C56.0771 44.7964 60.9229 43.4216 65.8612 43.4216C76.3717 43.4216 80.4375 50.3246 80.4375 61.1081V95.1112Z"
-                                    fill="#900C3F"
-                                />
-                            </svg>
-                        </span>
-                    </div>
+			<!-- Home page header -->
+			<header class="hero-section home flex-column justify-content-start">
+				<nav>
+					<div class="logo-container">
+						<span class="flex-center logo-span">
+							<svg
+								width="117"
+								height="117"
+								viewBox="0 0 117 117"
+								fill="none"
+								xmlns="http://www.w3.org/2000/svg"
+							>
+								<path
+									d="M58.5 0C11.7 0 0 11.7 0 58.5C0 105.3 11.7 117 58.5 117C105.3 117 117 105.3 117 58.5C117 11.7 105.3 0 58.5 0ZM80.4375 95.1112H64.3012V63.3896C64.3012 58.6365 63.3896 55.4824 60.2355 55.4824C56.7645 55.4824 52.5574 60.372 52.5574 68.2792V95.1064H36.5625V24.2287L52.6012 21.4841V47.9456C56.0771 44.7964 60.9229 43.4216 65.8612 43.4216C76.3717 43.4216 80.4375 50.3246 80.4375 61.1081V95.1112Z"
+									fill="#900C3F"
+								/>
+							</svg>
+						</span>
+					</div>
 
-                    <div class="nav-links-wrapper">
-                        <ul class="nav-links-container">
-                            <li><a href="#" class="fs-5 nav-link">Become a member</a></li>
-                            <li><a href="#" class="fs-5 nav-link">How it works</a></li>
-                            <li><a href="#" class="fs-5 nav-link">Help center</a></li>
-                            <li>
-                                <a href="#" class="fs-5 gradient-btn-util-fill">Log in</a>
-                            </li>
-                        </ul>
-                    </div>
-                </nav>
+					<div class="nav-links-wrapper">
+						<ul class="nav-links-container">
+							<li><a href="#" class="fs-5 nav-link">How it works</a></li>
+							<li><a href="#" class="fs-5 nav-link">Help center</a></li>
+							<li><a href="#" class="fs-5 nav-link">Ask</a></li>
+							<li>
+								<a href="#" class="fs-5 gradient-btn-util-fill">Log in</a>
+							</li>
+						</ul>
+					</div>
+				</nav>
 
-                <div class="flex-column justify-content-end flex-fill">
+				<!-- <div class="flex-column justify-content-end flex-fill">
                     <h2 class="text-white">
                         The Kings Halloween Event Celebration Party
                     </h2>
@@ -167,9 +166,50 @@
                     <a href="#" class="fs-5 gradient-btn-util-fill mt-3"
                         >Become a member</a
                     >
+                </div> -->
+                <div class="container">
+                    <div class="d-flex flex-wrap justify-content-between hero-select-container">
+                        <div class="row gap-3 flex-nowrap">
+                            <div class="col-md-5 p-0">
+                                <select class="w-100" name="" id="">
+                                    <option value="">Audience</option>
+                                    <option value="China">China</option>
+                                    <option value="Ghana">Ghana</option>
+                                    <option value="Nigeria">Nigeria</option>
+                                </select>
+                            </div>
+    
+                            <div class="col-md-7 p-0">
+                                <select class="w-100" name="" id="">
+                                    <option value="">Country</option>
+                                    <option value="China">China</option>
+                                    <option value="Ghana">Ghana</option>
+                                    <option value="Nigeria">Nigeria</option>
+                                </select>
+                            </div>
+    
+                            <div class="col-md-7 p-0">
+                                <select class="w-100" name="" id="">
+                                    <option value="">City</option>
+                                    <option value="China">China</option>
+                                    <option value="Ghana">Ghana</option>
+                                    <option value="Nigeria">Nigeria</option>
+                                </select>
+                            </div>
+                        </div>
+    
+                        <div class="col-md-3">
+                            <select class="w-100" name="" id="">
+                                <option value="">Audience</option>
+                                <option value="China">China</option>
+                                <option value="Ghana">Ghana</option>
+                                <option value="Nigeria">Nigeria</option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
-            </header>
-            <!-- Home page header -->
+			</header>
+			<!-- Home page header -->
 
 			<section class="py-4">
 				<div class="container">
@@ -187,7 +227,7 @@
 							</div>
 						</div>
 
-                        <div class="event-card">
+						<div class="event-card">
 							<div class="event-details-container">
 								<h4 class="mb-1 fs-5 fw-medium">The Adventurer</h4>
 								<div class="d-flex justify-content-between align-items-center">
@@ -197,7 +237,7 @@
 							</div>
 						</div>
 
-                        <div class="event-card">
+						<div class="event-card">
 							<div class="event-details-container">
 								<h4 class="mb-1 fs-5 fw-medium">The Adventurer</h4>
 								<div class="d-flex justify-content-between align-items-center">
@@ -207,26 +247,27 @@
 							</div>
 						</div>
 
-                        <div class="event-card">
-                                <div class="event-details-container">
-                                    <h4 class="mb-1 fs-5 fw-medium">The Adventurer</h4>
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <span>2nd, January 2025</span>
-                                        <span>10:00pm</span>
-                                    </div>
-                                </div>
+						<div class="event-card">
+							<div class="event-details-container">
+								<h4 class="mb-1 fs-5 fw-medium">The Adventurer</h4>
+								<div class="d-flex justify-content-between align-items-center">
+									<span>2nd, January 2025</span>
+									<span>10:00pm</span>
+								</div>
+							</div>
 						</div>
 
-                        <div class="event-card">
-                                <div class="event-details-container">
-                                    <h4 class="mb-1 fs-5 fw-medium">The Adventurer</h4>
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <span>2nd, January 2025</span>
-                                        <span>10:00pm</span>
-                                    </div>
-                                </div>
+						<div class="event-card">
+							<div class="event-details-container">
+								<h4 class="mb-1 fs-5 fw-medium">The Adventurer</h4>
+								<div class="d-flex justify-content-between align-items-center">
+									<span>2nd, January 2025</span>
+									<span>10:00pm</span>
+								</div>
+							</div>
 						</div>
 					</div>
+                    <a href="#" class="gradient-btn-util-fill fs-5 mx-auto d-inline-block ">View more</a>
 				</div>
 			</section>
 			<!-- Navigation Bar -->
