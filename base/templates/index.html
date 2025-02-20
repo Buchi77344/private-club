@@ -26,6 +26,10 @@
 				overflow-x: hidden;
 			}
 
+			.swiper {
+				position: relative;
+			}
+
 			/* Swiper Container */
 			.swiper-container {
 				width: 85%;
@@ -36,14 +40,24 @@
 
 			/* Swiper Slide (Cards) */
 			.swiper-slide {
-				background: rgba(255, 255, 255, 0.1);
-				backdrop-filter: blur(8px);
+				/* background: rgba(255, 255, 255, 0.1); */
+				/* backdrop-filter: blur(8px); */
 				border-radius: 15px;
-				text-align: center;
+				/* text-align: center; */
 				transition: transform 0.3s ease-in-out;
 				overflow: hidden;
 				position: relative;
-				height: 350px;
+				height: 320px;
+				width: 320px;
+				margin: 10px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+			}
+
+			.swiper-slide .event-card {
+				height: 90%;
+				width: 90%;
 			}
 
 			/* Image inside Cards */
@@ -70,13 +84,40 @@
 
 			/* Swiper Pagination */
 			.swiper-pagination {
-				bottom: 15px;
+				bottom: 10px;
+				left: 50%!important;
+				transform: translateX(-50%);
+			}
+
+			
+
+			.swiper-pagination-bullet {
+				background-color: rgba(255, 255, 255, 0.4);
+			}
+
+			.swiper-pagination-bullet-active {
+				background-color: rgba(247, 5, 5, 0.8) !important;
 			}
 
 			/* Navigation Buttons */
-			.swiper-button-prev,
-			.swiper-button-next {
+			.swiper-button-next,
+			.swiper-button-prev {
+				top: auto;
+				bottom: -3px;
 				color: white;
+			}
+
+			.swiper-button-next {
+				right: calc(50% - 70px);
+			}
+
+			.swiper-button-prev {
+				left: calc(50% - 70px);
+			}
+
+			.swiper-button-next::after,
+			.swiper-button-prev::after {
+				font-size: 24px;
 			}
 		</style>
 	</head>
@@ -156,6 +197,12 @@
 							</li>
 						</ul>
 					</div>
+
+					<div class="hamburger">
+						<span></span>
+						<span></span>
+						<span></span>
+					</div>
 				</nav>
 
 				<!-- <div class="flex-column justify-content-end flex-fill">
@@ -167,90 +214,116 @@
                         >Become a member</a
                     >
                 </div> -->
-                <div class="container">
-                    <div class="d-flex flex-wrap justify-content-between hero-select-container mt-4">
-                        <div class="row gap-3 flex-md-nowrap">
-                            <div class="col-md-5 p-0">
-                                <select class="w-100" name="" id="">
-                                    <option value="">Audience</option>
-                                    <option value="China">China</option>
-                                    <option value="Ghana">Ghana</option>
-                                    <option value="Nigeria">Nigeria</option>
-                                </select>
-                            </div>
-    
-                            <div class="col-md-7 p-0">
-                                <select class="w-100" name="" id="">
-                                    <option value="">Country</option>
-                                    <option value="China">China</option>
-                                    <option value="Ghana">Ghana</option>
-                                    <option value="Nigeria">Nigeria</option>
-                                </select>
-                            </div>
-    
-                            <div class="col-md-7 p-0">
-                                <select class="w-100" name="" id="">
-                                    <option value="">City</option>
-                                    <option value="China">China</option>
-                                    <option value="Ghana">Ghana</option>
-                                    <option value="Nigeria">Nigeria</option>
-                                </select>
-                            </div>
-                        </div>
-    
-                        <div class="col-md-3">
-                            <select class="w-100" name="" id="">
-                                <option value="">Audience</option>
-                                <option value="China">China</option>
-                                <option value="Ghana">Ghana</option>
-                                <option value="Nigeria">Nigeria</option>
-                            </select>
-                        </div>
-                    </div>
+				<div class="container">
+					<div
+						class="d-flex flex-wrap justify-content-between hero-select-container mt-4"
+					>
+						<div class="row gap-3 flex-lg-nowrap">
+							<div class="col-md-5 p-0">
+								<select class="w-100" name="" id="">
+									<option value="">Audience</option>
+									<option value="China">China</option>
+									<option value="Ghana">Ghana</option>
+									<option value="Nigeria">Nigeria</option>
+								</select>
+							</div>
 
-                    	<!-- Swiper Slider with 3D Effect -->
-			<div class="swiper-container">
-				<div class="swiper-wrapper">
-					<!-- Event 1 -->
-					<div class="swiper-slide">
-						<img src="static/img/one.webp" alt="Event 1" />
-						<div class="event-info">
-							<h5>The Bout for Lions</h5>
-							<p>📅 2nd January, 2025 - ⏰ 10:00 PM</p>
+							<div class="col-md-7 p-0">
+								<select class="w-100" name="" id="">
+									<option value="">Country</option>
+									<option value="China">China</option>
+									<option value="Ghana">Ghana</option>
+									<option value="Nigeria">Nigeria</option>
+								</select>
+							</div>
+
+							<div class="col-md-7 p-0">
+								<select class="w-100" name="" id="">
+									<option value="">City</option>
+									<option value="China">China</option>
+									<option value="Ghana">Ghana</option>
+									<option value="Nigeria">Nigeria</option>
+								</select>
+							</div>
+						</div>
+
+						<div class="col-md-3">
+							<select class="w-100" name="" id="">
+								<option value="">Audience</option>
+								<option value="China">China</option>
+								<option value="Ghana">Ghana</option>
+								<option value="Nigeria">Nigeria</option>
+							</select>
 						</div>
 					</div>
-					<!-- Event 2 -->
-					<div class="swiper-slide">
-						<img src="static/img/red.png" alt="Event 2" />
-						<div class="event-info">
-							<h5>Basketball Finals</h5>
-							<p>📅 5th January, 2025 - ⏰ 8:00 PM</p>
+
+					<!-- Swiper Slider with 3D Effect -->
+					<div class="swiper-container">
+						<div class="swiper-wrapper">
+							<!-- Event 1 -->
+							<div class="swiper-slide">
+								<div class="event-card">
+									<div class="event-details-container">
+										<h4 class="mb-1 fs-5 fw-medium">The Adventurer</h4>
+										<div
+											class="d-flex justify-content-between align-items-center"
+										>
+											<span>2nd, January 2025</span>
+											<span>10:00pm</span>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- Event 2 -->
+							<div class="swiper-slide">
+								<div class="event-card">
+									<div class="event-details-container">
+										<h4 class="mb-1 fs-5 fw-medium">The Adventurer</h4>
+										<div
+											class="d-flex justify-content-between align-items-center"
+										>
+											<span>2nd, January 2025</span>
+											<span>10:00pm</span>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- Event 3 -->
+							<div class="swiper-slide">
+								<div class="event-card">
+									<div class="event-details-container">
+										<h4 class="mb-1 fs-5 fw-medium">The Adventurer</h4>
+										<div
+											class="d-flex justify-content-between align-items-center"
+										>
+											<span>2nd, January 2025</span>
+											<span>10:00pm</span>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- Event 4 -->
+							<div class="swiper-slide">
+								<div class="event-card">
+									<div class="event-details-container">
+										<h4 class="mb-1 fs-5 fw-medium">The Adventurer</h4>
+										<div
+											class="d-flex justify-content-between align-items-center"
+										>
+											<span>2nd, January 2025</span>
+											<span>10:00pm</span>
+										</div>
+									</div>
+								</div>
+							</div>
 						</div>
-					</div>
-					<!-- Event 3 -->
-					<div class="swiper-slide">
-						<img src="static/img/red.png" alt="Event 3" />
-						<div class="event-info">
-							<h5>Concert Night</h5>
-							<p>📅 10th January, 2025 - ⏰ 6:30 PM</p>
-						</div>
-					</div>
-					<!-- Event 4 -->
-					<div class="swiper-slide">
-						<img src="static/img/red.png" alt="Event 4" />
-						<div class="event-info">
-							<h5>Art Exhibition</h5>
-							<p>📅 15th January, 2025 - ⏰ 4:00 PM</p>
-						</div>
+
+						<!-- Pagination & Navigation -->
+						<div class="swiper-pagination"></div>
+						<div class="swiper-button-prev"></div>
+						<div class="swiper-button-next"></div>
 					</div>
 				</div>
-
-				<!-- Pagination & Navigation -->
-				<div class="swiper-pagination"></div>
-				<div class="swiper-button-prev"></div>
-				<div class="swiper-button-next"></div>
-			</div>
-                </div>
 			</header>
 			<!-- Home page header -->
 
@@ -310,7 +383,11 @@
 							</div>
 						</div>
 					</div>
-                    <a href="#" class="gradient-btn-util-fill fs-5 mx-auto mt-4 d-block fit-content">View more</a>
+					<a
+						href="#"
+						class="gradient-btn-util-fill fs-5 mx-auto mt-4 d-block fit-content"
+						>View more</a
+					>
 				</div>
 			</section>
 			<!-- Navigation Bar -->
