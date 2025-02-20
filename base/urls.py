@@ -15,8 +15,13 @@ urlpatterns = [
     path('event/<int:event_id>/', event_detail, name='event_detail'),
     path("get-token/", get_token, name="get_token"),
     path("send-message/", send_message, name="send_message"),
+  
+    path("get-messages/<str:receiver_username>/", get_messages, name="get_messages"),
+    path("get-users/", get_users, name="get_users"),
     path("add-referral/", add_referral, name="add_referral"),
     path("chat/", chat_page, name="chat"),
+    path("asklist/", asklist, name="asklist"),
+    path("askapi/", askapi, name="askapi"),
 ]
 
 
