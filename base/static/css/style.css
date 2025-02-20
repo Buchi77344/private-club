@@ -678,9 +678,10 @@ a.gradient-btn-util-fill {
 }
 
 .hamburger span{
-	    height: 2px;
-
-}
+	height: 3px;
+	width : 90%;
+	border-radius: 10px;
+}	
 
 .hero-section h2 {
 	font-size: 3rem;
