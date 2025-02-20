@@ -648,3 +648,7 @@ def get_users(request):
     User = get_user_model()
     users = User.objects.exclude(username=request.user.username).values_list("username", flat=True)
     return JsonResponse({"users": list(users)})
+
+
+def eventlist(request):
+    return render(request, 'eventlist.html')
