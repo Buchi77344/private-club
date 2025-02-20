@@ -667,6 +667,21 @@ a.gradient-btn-util-fill {
 	color: white;
 }
 
+.hamburger{
+	width : 32px;
+	height: 36px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 5px;
+}
+
+.hamburger span{
+	    height: 2px;
+
+}
+
 .hero-section h2 {
 	font-size: 3rem;
 }
@@ -674,7 +689,7 @@ a.gradient-btn-util-fill {
 .event-card {
 	min-width: 250px;
 	height: 280px;
-  overflow: hidden;
+	overflow: hidden;
 	background-image: url("../img/login-banner.jpg");
 	background-position: center;
 	background-size: cover;
@@ -684,7 +699,7 @@ a.gradient-btn-util-fill {
 	align-items: center;
 	flex-direction: column;
 	justify-content: end;
-  border-radius: 10px;
+  	border-radius: 10px;
 }
 
 .event-details-container {
@@ -694,20 +709,20 @@ a.gradient-btn-util-fill {
 		rgb(175, 1, 59)
 	);
 	padding: 10px 12px;
-  width : 100%;
+  	width : 100%;
 }
 
 .hero-select-container select{
-  background-color: transparent;
-  appearance: none;
-  border: 1px solid rgba(255, 255, 255, .4);
-  color : white;
-  font-size: 1.1rem;
-  	background: url("../img/svg/down-arrow-icon-white.svg") center right 12px;
+	background-color: transparent;
+	appearance: none;
+	border: 1px solid rgba(255, 255, 255, .4);
+	color : white;
+	font-size: 1.1rem;
+	background: url("../img/svg/down-arrow-icon-white.svg") center right 12px;
 	background-repeat: no-repeat;
 	background-size: 20px;
-  padding : 4px 10px;
-  border-radius: 5px;
+	padding : 4px 10px;
+	border-radius: 15px;
 }
 
 .hero-select-container select option{
