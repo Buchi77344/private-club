@@ -3,28 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Stream Chat</title>
+    <title>Chat</title>
     
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body { background-color: #f0f2f5; }
         .chat-container { max-width: 700px; margin: auto; margin-top: 50px; }
-        .chat-box { height: 400px; overflow-y: auto; background: white; padding: 15px; border-radius: 10px; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); }
+        .user-card { cursor: pointer; transition: 0.3s; }
+        .user-card:hover { background-color: #f8f9fa; }
+        .chat-box { height: 400px; overflow-y: auto; background: white; padding: 15px; border-radius: 10px; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); display: flex; flex-direction: column; }
         .message { padding: 10px; border-radius: 20px; margin-bottom: 10px; max-width: 70%; }
         .user-message { background-color: #007bff; color: white; align-self: flex-end; }
         .other-message { background-color: #e9ecef; color: black; align-self: flex-start; }
-        .input-group { margin-top: 10px; }
     </style>
 </head>
 <body>
     <div class="container chat-container">
-        <h3 class="text-center mb-3">Stream Chat</h3>
-        <div class="chat-box d-flex flex-column" id="messages"></div>
-        <div class="input-group">
-            <input type="text" id="user_id" class="form-control" placeholder="Enter User ID">
-            <input type="text" id="message" class="form-control" placeholder="Type a message">
-            <button class="btn btn-primary" onclick="sendMessage()">Send</button>
+        <h3 class="text-center mb-3">Chat</h3>
+        <div class="row" id="user-list"></div>
+    </div>
+
+    <!-- Chat Modal -->
+    <div class="modal fade" id="chatModal" tabindex="-1" aria-labelledby="chatModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="chatModalLabel"></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="chat-box" id="messages"></div>
+                    <div class="input-group mt-2">
+                        <input type="text" id="message" class="form-control" placeholder="Type a message">
+                        <button class="btn btn-primary" onclick="sendMessage()">Send</button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -32,24 +47,49 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     
     <script>
+        let currentReceiver = null;
+
+        async function fetchUsers() {
+            let response = await fetch("/get-users/");
+            let data = await response.json();
+            let userList = document.getElementById("user-list");
+            userList.innerHTML = "";
+            data.users.forEach(user => {
+                let userCard = document.createElement("div");
+                userCard.classList.add("col-md-4", "mb-3");
+                userCard.innerHTML = `
+                    <div class="card user-card p-3" onclick="selectUser('${user}')">
+                        <h5 class="text-center">${user}</h5>
+                    </div>
+                `;
+                userList.appendChild(userCard);
+            });
+        }
+
+        function selectUser(user) {
+            currentReceiver = user;
+            document.getElementById("chatModalLabel").innerText = "Chat with " + user;
+            loadMessages();
+            let chatModal = new bootstrap.Modal(document.getElementById('chatModal'));
+            chatModal.show();
+        }
+
         async function sendMessage() {
-            let userId = document.getElementById("user_id").value;
             let message = document.getElementById("message").value;
             let messagesContainer = document.getElementById("messages");
             
-            if (!userId || !message) {
-                alert("User ID and message are required!");
+            if (!currentReceiver || !message) {
+                alert("Select a user and type a message!");
                 return;
             }
             
-            let formData = new FormData();
-            formData.append("user_id", userId);
-            formData.append("message", message);
-            
             let response = await fetch("/send-message/", {
                 method: "POST",
-                body: formData,
-                headers: { "X-CSRFToken": getCSRFToken() },
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRFToken": getCSRFToken(),
+                },
+                body: JSON.stringify({ receiver: currentReceiver, message: message })
             });
             
             try {
@@ -57,7 +97,7 @@
                 if (data.status === "success") {
                     let msgDiv = document.createElement("div");
                     msgDiv.classList.add("message", "user-message", "ms-auto");
-                    msgDiv.innerText = `${userId}: ${message}`;
+                    msgDiv.innerText = `You: ${message}`;
                     messagesContainer.appendChild(msgDiv);
                     messagesContainer.scrollTop = messagesContainer.scrollHeight;
                     document.getElementById("message").value = "";
@@ -78,6 +118,26 @@
             }
             return "";
         }
+
+        async function loadMessages() {
+            let messagesContainer = document.getElementById("messages");
+            
+            if (!currentReceiver) return;
+            
+            let response = await fetch(`/get-messages/${currentReceiver}/`);
+            let data = await response.json();
+            
+            messagesContainer.innerHTML = "";
+            data.messages.forEach(msg => {
+                let msgDiv = document.createElement("div");
+                msgDiv.classList.add("message", msg.sender === "{{ request.user.username }}" ? "user-message" : "other-message");
+                msgDiv.innerText = `${msg.sender}: ${msg.message}`;
+                messagesContainer.appendChild(msgDiv);
+            });
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+        
+        fetchUsers();
     </script>
 </body>
 </html>

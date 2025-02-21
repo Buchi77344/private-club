@@ -183,6 +183,7 @@ def signup(request):
                 state=state,
                 primary_email=primary_email,
                 email=primary_email,
+                username = primary_email,
                 secondary_email=secondary_email,
                 primary_phone=primary_phone,
                 secondary_phone=secondary_phone,
@@ -544,31 +545,110 @@ from django.http import JsonResponse
 from stream_chat import StreamChat
 from django.conf import settings
 
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth import get_user_model
+from stream_chat import StreamChat
+from django.conf import settings
+import json
+import re
 
+User = get_user_model()
+client = StreamChat(api_key=settings.STREAM_API_KEY, api_secret=settings.STREAM_API_SECRET)
 
-@csrf_exempt  # Disable CSRF (Only for testing)
+def format_username(username):
+    """Ensure usernames are valid for Stream Chat by replacing invalid characters."""
+    return re.sub(r"[^a-zA-Z0-9@_-]", "_", username)
+
+@csrf_exempt
 def send_message(request):
     if request.method == "POST":
-        user_id = request.POST.get("user_id")
-        message = request.POST.get("message")
-
-        if not user_id or not message:
-            return JsonResponse({"error": "Missing user_id or message"}, status=400)
-
         try:
-            channel = client.channel("messaging", "general")
-            channel.create(user_id)
-            response = channel.send_message({"text": message}, user_id)
-            return JsonResponse({"status": "success", "message": response})
+            data = json.loads(request.body)
+            receiver_username = data.get("receiver")
+            message_text = data.get("message")
+
+            if not receiver_username or not message_text:
+                return JsonResponse({"error": "Receiver and message are required"}, status=400)
+
+            sender = request.user
+            receiver = User.objects.get(username=receiver_username)
+
+            # Format usernames for Stream Chat
+            sender_stream_id = format_username(sender.username)
+            receiver_stream_id = format_username(receiver.username)
+
+            # Ensure users exist in Stream Chat
+            client.upsert_user({"id": sender_stream_id, "name": sender.username})
+            client.upsert_user({"id": receiver_stream_id, "name": receiver.username})
+
+            # Create a unique channel for the two users
+            channel_id = f"chat_{min(sender.id, receiver.id)}_{max(sender.id, receiver.id)}"
+            channel = client.channel("messaging", channel_id, {"members": [sender_stream_id, receiver_stream_id]})
+            channel.create(sender_stream_id)
+
+            # Send the message via Stream Chat API
+            response = channel.send_message({"text": message_text}, sender_stream_id)
+
+            # Save the message in the database
+            ChatMessage.objects.create(sender=sender, receiver=receiver, message=message_text)
+
+            return JsonResponse({"status": "success", "message": response}, status=200)
+
+        except User.DoesNotExist:
+            return JsonResponse({"error": "Receiver not found"}, status=404)
         except Exception as e:
             return JsonResponse({"error": str(e)}, status=500)
-    return JsonResponse({"error": "Invalid request"}, status=400)
 
+    return JsonResponse({"error": "Invalid request"}, status=400)
+def get_messages(request, receiver_username):
+    sender = request.user
+    receiver = CustomUser.objects.get(username=receiver_username)
+
+    messages = ChatMessage.objects.filter(
+        sender__in=[sender, receiver], receiver__in=[sender, receiver]
+    ).order_by("timestamp")
+
+    messages_data = [{"sender": msg.sender.username, "message": msg.message} for msg in messages]
+
+    return JsonResponse({"messages": messages_data})
 
 
 
 def chat_page(request):
     return render(request, "chat.html")
 
+def asklist(request):
+    ask = Ask.objects.all()
+    context = {
+        'ask':ask
+    }
+    return render (request,'ask.html',context)
+
+def askapi(request):
+    if request.method == "POST":
+        try:
+            data =json.loads(request.body)
+            add_title =data.get('add_title')
+            discription = data.get('discription')
+            date = data.get('date')
+            Ask.objects.create(add_title=add_title,discription=discription, date=date,user=request.user)
+            return  JsonResponse({'sucess':True},status=200)
+        except json.JSONDecodeError:
+            return JsonResponse({
+            'error':'invalid json',
+        },status=400)
+    
+    return JsonResponse({
+            'error':'invalid json',
+        },status=405)
 
 
+def get_users(request):
+    User = get_user_model()
+    users = User.objects.exclude(username=request.user.username).values_list("username", flat=True)
+    return JsonResponse({"users": list(users)})
+
+
+def eventlist(request):
+    return render(request, 'eventlist.html')

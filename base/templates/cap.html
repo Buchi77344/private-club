@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Swiper Slider Fix</title>
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="../static/css/style.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+    <style>
+        body {
+            background: url("https://source.unsplash.com/random/1600x900/?concert,party")
+                no-repeat center center/cover;
+            overflow-x: hidden;
+            color : white;
+        }
+        /* Ensure proper centering */
+        .swiper-container {
+            width: 100%;
+            max-width: 700px; /* Adjust as needed */
+            margin: 0 auto;
+            padding: 10px 0;
+        }
+
+        .swiper-slide {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: auto; /* Ensures slides size naturally */
+        }
+
+        .event-card {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 300px; /* Adjust slide width */
+        }
+
+        .event-details-container h4 {
+            margin: 0;
+        }
+
+        .d-flex {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- First Swiper Container -->
+    <div class="swiper-container swiper-container-0">
+        <div class="swiper-wrapper">
+            <!-- Slide 1 -->
+            <div class="swiper-slide">
+                <div class="event-card">
+                    <div class="event-details-container">
+                        <h4 class="mb-1 fs-5 fw-medium">The Adventurer</h4>
+                        <div class="d-flex">
+                            <span>2nd, January 2025</span>
+                            <span>10:00pm</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Slide 2 -->
+            <div class="swiper-slide">
+                <div class="event-card">
+                    <div class="event-details-container">
+                        <h4 class="mb-1 fs-5 fw-medium">Explorer's Night</h4>
+                        <div class="d-flex">
+                            <span>5th, February 2025</span>
+                            <span>8:00pm</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="swiper-pagination swiper-pagination-0"></div>
+        <div class="swiper-button-next swiper-button-next-0"></div>
+        <div class="swiper-button-prev swiper-button-prev-0"></div>
+    </div>
+
+    <!-- Second Swiper Container -->
+    <div class="swiper-container swiper-container-1">
+        <div class="swiper-wrapper">
+            <!-- Slide 1 -->
+            <div class="swiper-slide">
+                <div class="event-card">
+                    <div class="event-details-container">
+                        <h4 class="mb-1 fs-5 fw-medium">Music Fest</h4>
+                        <div class="d-flex">
+                            <span>10th, March 2025</span>
+                            <span>6:00pm</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Slide 2 -->
+            <div class="swiper-slide">
+                <div class="event-card">
+                    <div class="event-details-container">
+                        <h4 class="mb-1 fs-5 fw-medium">Sunset Party</h4>
+                        <div class="d-flex">
+                            <span>12th, April 2025</span>
+                            <span>5:30pm</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="swiper-pagination swiper-pagination-1"></div>
+        <div class="swiper-button-next swiper-button-next-1"></div>
+        <div class="swiper-button-prev swiper-button-prev-1"></div>
+    </div>
+
+    <!-- Third Swiper Container -->
+    <div class="swiper-container swiper-container-2">
+        <div class="swiper-wrapper">
+            <!-- Slide 1 -->
+            <div class="swiper-slide">
+                <div class="event-card">
+                    <div class="event-details-container">
+                        <h4 class="mb-1 fs-5 fw-medium">Winter Gala</h4>
+                        <div class="d-flex">
+                            <span>20th, December 2025</span>
+                            <span>7:00pm</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Slide 2 -->
+            <div class="swiper-slide">
+                <div class="event-card">
+                    <div class="event-details-container">
+                        <h4 class="mb-1 fs-5 fw-medium">Charity Ball</h4>
+                        <div class="d-flex">
+                            <span>25th, December 2025</span>
+                            <span>9:00pm</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="swiper-pagination swiper-pagination-2"></div>
+        <div class="swiper-button-next swiper-button-next-2"></div>
+        <div class="swiper-button-prev swiper-button-prev-2"></div>
+    </div>
+
+    <!-- Swiper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            document.querySelectorAll(".swiper-container").forEach(function (container, index) {
+                new Swiper(container, {
+                    effect: "coverflow",
+                    grabCursor: true,
+                    centeredSlides: true,
+                    slidesPerView: "auto",
+                    spaceBetween: 5,
+                    loop: true,
+                    coverflowEffect: {
+                        rotate: 0,
+                        stretch: -20,
+                        depth: 120,
+                        modifier: 1,
+                        slideShadows: false,
+                    },
+                    autoplay: {
+                        delay: 2500,
+                        disableOnInteraction: false,
+                    },
+                    pagination: {
+                        el: `.swiper-pagination-${index}`,
+                        clickable: true,
+                    },
+                    navigation: {
+                        nextEl: `.swiper-button-next-${index}`,
+                        prevEl: `.swiper-button-prev-${index}`,
+                    },
+                });
+            });
+        });
+    </script>
+
+</body>
+</html>
