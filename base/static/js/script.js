@@ -28,10 +28,11 @@ function toggleDropdown() {
     const dropdown = document.querySelector(".dropdown-util");
     // Check if dropdown is visible
     if (dropdown.style.display === "none" || dropdown.style.display === "") {
-        dropdown.style.display = "block"; // Show dropdown
-        const maxHeight = (dropdown.scrollHeight + 20) + "px"; // Get actual height of dropdown
-        dropdown.style.maxHeight = maxHeight; // Set max-height to the dropdown's height
-    } else {
+			dropdown.style.display = "block"; // Show dropdown
+			const maxHeight = dropdown.scrollHeight + 10 + "px"; // Get actual height of dropdown
+			dropdown.style.maxHeight = maxHeight; // Set max-height to the dropdown's height
+			dropdown.style.height = maxHeight; // Set max-height to the dropdown's height
+		} else {
         dropdown.style.maxHeight = "0"; // Collapse dropdown
         setTimeout(() => {
             dropdown.style.display = "none"; // Hide after transition

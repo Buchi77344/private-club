@@ -1158,6 +1158,14 @@ span.logout-span img{
 	transform: none;
 }
 
+.ask-page .hero-section h2{
+	font-size: 3.8rem;
+}
+
+.ask-page .hero-section{
+	min-height: 50vh;
+}
+
 footer {
 	box-shadow: 1px -4px 5px rgba(0, 0, 0, 0.3);
 	border-radius: 6px;
