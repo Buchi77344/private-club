@@ -134,7 +134,70 @@
 	<body>
 		<div class="">
 			<!-- Landing page header -->
-			<header class="hero-section flex-column d-none">
+			<div class="overlay-util"></div>
+			<div class="mobile-nav">
+				<div class="d-flex justify-content-between align-items-center">
+					<div class="logo-container">
+						<span class="flex-center logo-span">
+							<svg
+							width="117"
+							height="117"
+							viewBox="0 0 117 117"
+							fill="none"
+							xmlns="http://www.w3.org/2000/svg"
+							>
+							<path
+								d="M58.5 0C11.7 0 0 11.7 0 58.5C0 105.3 11.7 117 58.5 117C105.3 117 117 105.3 117 58.5C117 11.7 105.3 0 58.5 0ZM80.4375 95.1112H64.3012V63.3896C64.3012 58.6365 63.3896 55.4824 60.2355 55.4824C56.7645 55.4824 52.5574 60.372 52.5574 68.2792V95.1064H36.5625V24.2287L52.6012 21.4841V47.9456C56.0771 44.7964 60.9229 43.4216 65.8612 43.4216C76.3717 43.4216 80.4375 50.3246 80.4375 61.1081V95.1112Z"
+								fill="#900C3F"
+							/>
+							</svg>
+						</span>
+					</div>
+
+					<button class="close-nav-btn text-black">&times;</button>
+				</div>
+
+				<ul class="nav-links-container">
+					<li><a href="#" class="fs-5 nav-link">Home</a></li>
+					<li class="w-100 account-dropdown">
+						<div class="account-dropdown-head dropdown-toggle-util">
+							<span class="fs-5 fw-bold">My Account</span>
+							<span class="flex-center">
+								<img src="../static/img/svg/down-arrow-icon.svg" alt="" />
+							</span>
+						</div>
+
+						<ul class="sub-link-container dropdown-util">
+							<li><a href="#" class="sub-link">Account profile</a></li>
+							<li><a href="#" class="sub-link">How it works</a></li>
+							<li><a href="#" class="sub-link">How it works</a></li>
+							<li><a href="#" class="sub-link">How it works</a></li>
+							<li><a href="#" class="sub-link">How it works</a></li>
+							<li><a href="#" class="sub-link">How it works</a></li>
+
+						</ul>
+					</li>
+					<li><a href="#" class="fs-5 nav-link">How it works</a></li>
+					<li><a href="#" class="fs-5 nav-link">Ask</a></li>
+					<li><a href="#" class="fs-5 nav-link">Help center</a></li>
+					<li class="d-flex w-100 gap-2 justify-content-between align-items-center">
+						<div class="d-flex gap-2 align-items-center">
+							<img
+								src="../static/img/profile-img.jpg"
+								alt=""
+								class="profile-img-nbr"
+							/>
+							<span class="profile-name text-black fs-6 fw-bold">Goodluck</span>
+						</div>
+
+						<span class="flex-center logout-span">
+							<img width = "30" height = "30" class="rotate-90" src="../static/img/svg/download.svg" alt="">
+						</span>
+					</li>
+				</ul>
+			</div>
+
+			<header class="hero-section flex-column">
 				<nav>
 					<div class="logo-container">
 						<span class="flex-center logo-span">
@@ -163,10 +226,16 @@
 							</li>
 						</ul>
 					</div>
+
+					<div class="hamburger">
+						<span></span>
+						<span></span>
+						<span></span>
+					</div>
 				</nav>
 
 				<div class="flex-column justify-content-end flex-fill">
-					<h2 class="text-white">
+					<h2 class="text-white text-center">
 						The Kings Halloween Event Celebration Party
 					</h2>
 
@@ -174,11 +243,14 @@
 						>Become a member</a
 					>
 				</div>
+
+				
+			
 			</header>
 			<!-- Landing page header -->
 
 			<!-- Home page header -->
-			<header class="hero-section home flex-column justify-content-start ">
+			<header class="hero-section d-none home flex-column justify-content-start ">
 				<nav class="home">
 					<div class="logo-container">
 					  <span class="flex-center logo-span">
@@ -234,69 +306,6 @@
 					</div>
 				</nav>
 
-				<div class="overlay"></div>
-				<div class="mobile-nav">
-					<div class="d-flex justify-content-between align-items-center">
-						<div class="logo-container">
-							<span class="flex-center logo-span">
-								<svg
-								width="117"
-								height="117"
-								viewBox="0 0 117 117"
-								fill="none"
-								xmlns="http://www.w3.org/2000/svg"
-								>
-								<path
-									d="M58.5 0C11.7 0 0 11.7 0 58.5C0 105.3 11.7 117 58.5 117C105.3 117 117 105.3 117 58.5C117 11.7 105.3 0 58.5 0ZM80.4375 95.1112H64.3012V63.3896C64.3012 58.6365 63.3896 55.4824 60.2355 55.4824C56.7645 55.4824 52.5574 60.372 52.5574 68.2792V95.1064H36.5625V24.2287L52.6012 21.4841V47.9456C56.0771 44.7964 60.9229 43.4216 65.8612 43.4216C76.3717 43.4216 80.4375 50.3246 80.4375 61.1081V95.1112Z"
-									fill="#900C3F"
-								/>
-								</svg>
-							</span>
-						</div>
-
-						<button class="close-nav-btn text-black">&times;</button>
-					</div>
-
-					<ul class="nav-links-container">
-						<li><a href="#" class="fs-5 nav-link">Home</a></li>
-						<li class="w-100">
-							<div class="d-flex justify-content-between align-items-center">
-								<span class="fs-5 fw-bold">My Account</span>
-								<span class="flex-center">
-									<img src="../static/img/svg/down-arrow-icon.svg" alt="" />
-								</span>
-							</div>
-
-							<ul class="sub-link-container">
-								<li><a href="#" class="fs-5 sub-link">Account profile</a></li>
-								<li><a href="#" class="fs-5 sub-link">How it works</a></li>
-								<li><a href="#" class="fs-5 sub-link">How it works</a></li>
-								<li><a href="#" class="fs-5 sub-link">How it works</a></li>
-								<li><a href="#" class="fs-5 sub-link">How it works</a></li>
-								<li><a href="#" class="fs-5 sub-link">How it works</a></li>
-
-							</ul>
-						</li>
-						<li><a href="#" class="fs-5 nav-link">How it works</a></li>
-						<li><a href="#" class="fs-5 nav-link">Ask</a></li>
-						<li><a href="#" class="fs-5 nav-link">Help center</a></li>
-						<li class="d-flex w-100 gap-2 justify-content-between align-items-center">
-							<div class="d-flex gap-2 align-items-center">
-								<img
-								  src="../static/img/profile-img.jpg"
-								  alt=""
-								  class="profile-img-nbr"
-								/>
-								<span class="profile-name text-black fs-6 fw-bold">Goodluck</span>
-							</div>
-
-							<span class="flex-center logout-span">
-								<img width = "30" height = "30" class="rotate-90" src="../static/img/svg/download.svg" alt="">
-							</span>
-						</li>
-					</ul>
-				</div>
-
 				<!-- <div class="flex-column justify-content-end flex-fill">
                     <h2 class="text-white">
                         The Kings Halloween Event Celebration Party
@@ -339,7 +348,7 @@
 					  </div>
 					</div>
 		
-					<div class="col-md-2">
+					<div class="col-md-2 p-0">
 					  <select class="w-100" name="" id="">
 						<option value="">Date</option>
 						<option value="China">China</option>
